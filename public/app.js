@@ -1,15 +1,23 @@
 // import firebaseConfig from './firebaseConfig.js';
 // Firebase configuration object (use your configuration details here)
+// const firebaseConfig = {
+//   apiKey: process.env.FIREBASE_API_KEY,
+//   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+//   projectId: process.env.FIREBASE_PROJECT_ID,
+//   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+//   messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+//   appId: process.env.FIREBASE_APP_ID,
+//   measurementId: process.env.FIREBASE_MEASUREMENT_ID
+// };
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID,
-  measurementId: process.env.FIREBASE_MEASUREMENT_ID
+  apiKey: "AIzaSyBcNxs1qgOUV9QUXyEHNs_gPyZQHGpZ1B8",
+  authDomain: "dbs3-6a018.firebaseapp.com",
+  databaseURL: "https://dbs3-6a018-default-rtdb.firebaseio.com",
+  projectId: "dbs3-6a018",
+  storageBucket: "dbs3-6a018.firebasestorage.app",
+  messagingSenderId: "476698542874",
+  appId: "1:476698542874:web:41c0c69274d5d95a9522a3"
 };
-
 
 //Initialize App
 if (!firebase.apps.length) {
@@ -335,11 +343,11 @@ let uid, username;
             userDataContainer.innerHTML = `
             <h2>User Profile for ${username}</h2>
             <p><strong>Username:</strong> ${username}</p>
-            <p><strong>Logo:</strong> ${companyLogo}</p>
+            <img src="${companyLogo}">
             <p><strong>Company Name:</strong> ${companyName}</p>
-            <p><strong>Company Banner:</strong> ${companyBanner}</p>
+            <img src="${companyBanner}">
             <p><strong>Representative Name:</strong> ${repsentativeName}</p>
-            <p><strong>Representative Picture:</strong> ${representativePicture}</p>
+            <img src="${representativePicture}">
             <p><strong>Representative Designation:</strong> ${representativeDesignation}</p>
             <p><strong>Representative Phone Number:</strong> ${repPhoneNumber}</p>
             <p><strong>Representative Whatsapp Number:</strong> ${repWhatsappNumber}</p>
@@ -362,5 +370,51 @@ let uid, username;
         });
       }
 
+//Function to Save Newsletter Subscriptions
+function newsLetter(){
+  let newsletteremail = document.getElementById('newsletteremail').value;
+  let userRef = dbRef.child(`Newsletter`);
+  let newMessageRef = userRef.push();
+  newMessageRef.set({
+    email: newsletteremail
+  })
+  .then(() => {
+    // Display success message
+    alert("Thank you for subscribing to our newsletter!");
+    document.getElementById('newsletteremail').value = ""; // Clear the input field
+  })
+  .catch((error) => {
+    // Handle errors here
+    console.error("Error saving newsletter email:", error);
+    alert("Something went wrong. Please try again.");
+  });
 
+}
+
+//Function to Save Contact Form Submissions
+function contactForm(){
+  let contactname = document.getElementById('contactname').value;
+  let contactemail = document.getElementById('contactemail').value;
+  let contactsubject = document.getElementById('contactsubject').value;
+  let contactmessage = document.getElementById('contactmessage').value;
+  let userRef = dbRef.child(`Contact`);
+  let newMessageRef = userRef.push();
+  newMessageRef.set({
+    Name: contactname,
+    Email: contactemail,
+    Subject: contactsubject,
+    Message: contactmessage, 
+  })
+  .then(() => {
+      // Display success message
+      alert("We have received your message!");
+      document.getElementById('newsletteremail').value = ""; // Clear the input field
+  })
+  .catch((error) => {
+      // Handle errors here
+      console.error("Error", error);
+      alert("Something went wrong. Please try again.");
+  });
+
+}
 
