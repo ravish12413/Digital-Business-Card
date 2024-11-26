@@ -1,18 +1,30 @@
-
+// import firebaseConfig from './firebaseConfig.js';
 // Firebase configuration object (use your configuration details here)
+// const firebaseConfig = {
+//   apiKey: process.env.FIREBASE_API_KEY,
+//   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+//   projectId: process.env.FIREBASE_PROJECT_ID,
+//   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+//   messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+//   appId: process.env.FIREBASE_APP_ID,
+//   measurementId: process.env.FIREBASE_MEASUREMENT_ID
+// };
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID,
-  measurementId: process.env.FIREBASE_MEASUREMENT_ID
+  apiKey: "AIzaSyBcNxs1qgOUV9QUXyEHNs_gPyZQHGpZ1B8",
+  authDomain: "dbs3-6a018.firebaseapp.com",
+  databaseURL: "https://dbs3-6a018-default-rtdb.firebaseio.com",
+  projectId: "dbs3-6a018",
+  storageBucket: "dbs3-6a018.firebasestorage.app",
+  messagingSenderId: "476698542874",
+  appId: "1:476698542874:web:41c0c69274d5d95a9522a3"
 };
 
-
-
 firebase.initializeApp(firebaseConfig);
+
+// //Initialize App
+// if (!firebase.apps.length) {
+   
+//   }
 
 //Some Variable Declarations
 const auth = firebase.auth();
@@ -316,6 +328,60 @@ let uid, username;
     }
     
     
+    function toggleShareOptions() {
+      const shareOptions = document.getElementById('shareOptions');
+      if (shareOptions.style.display === 'block') {
+          shareOptions.style.display = 'none';
+      } else {
+          shareOptions.style.display = 'block';
+      }
+  }
+
+  // Close the share options
+  function closeShareOptions() {
+      document.getElementById('shareOptions').style.display = 'none';
+  }
+
+  // Copy the profile link to the clipboard
+  function copyLink() {
+      const profileLink = window.location.href; // Use the current page URL
+      navigator.clipboard.writeText(profileLink).then(function() {
+          alert('Link copied to clipboard!');
+      }).catch(function(err) {
+          console.error('Error copying text: ', err);
+      });
+  }
+
+  // Share on WhatsApp using mobile app link (works on mobile)
+  function shareWhatsApp() {
+      const profileLink = window.location.href;
+      // Try opening WhatsApp mobile app (works only on mobile devices)
+      if (navigator.userAgent.match(/iPhone|Android/i)) {
+          window.open(`whatsapp://send?text=${encodeURIComponent(profileLink)}`, '_blank');
+      } else {
+          // Fallback for desktop users: WhatsApp Web
+          window.open(`https://web.whatsapp.com/send?text=${encodeURIComponent(profileLink)}`, '_blank');
+      }
+  }
+
+  // Share on Instagram
+  function shareInstagram() {
+      const profileLink = window.location.href;
+      window.open(`https://www.instagram.com/sharer/sharer.php?u=${encodeURIComponent(profileLink)}`, '_blank');
+  }
+
+  // Share via Email
+  function shareEmail() {
+      const profileLink = window.location.href;
+      window.open(`mailto:?subject=Check out this profile&body=${encodeURIComponent(profileLink)}`, '_blank');
+  }
+
+  // Share on Facebook
+  function shareFacebook() {
+      const profileLink = window.location.href;
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(profileLink)}`, '_blank');
+  }
+    
 // you can remove this code if you have new syle 
     function fetchUserData() {
       injectCSS();
@@ -334,6 +400,9 @@ let uid, username;
               // Dynamically create the HTML structure
               // confusion in company details
               const htmlContent = `
+                  <head>    
+                  <title>Digital Business Card ${username}</title>
+                  <head>
                   <div id="main-look">
                       <div id="logo-container">
                           <img src="${data.companyLogo || 'default-logo.png'}" id="companyLogo" alt="Company Logo">
@@ -354,39 +423,37 @@ let uid, username;
                               </svg>
                           </div>
   
-                          <div class="profile-section">
-                              <div class="side-buttons">
-                                  <div class="Enquiry">
-                                      <i class="fas fa-qrcode" id= "qr-icon"></i>
-                                  </div>
-                              </div>
+                           <div class="profile-section">
+                               
   
-                              <div class="profile-image">
+                               <div class="profile-image">
                                   <img src="${data.representativePicture || 'default-profile.png'}" id="representativePicture" alt="Representative Image">
                                   <h2 id="repsentativeName">${data.representativeName || 'Representative Name'}</h2>
                                   <p id="representativeDesignation">${data.representativeDesignation || 'Designation'}</p>
                               </div>
   
-                              <div class="side-buttons">
-                                  <div class="Share">
-                                      <i class="fa-solid fa-share-nodes"></i>
-                                  </div>
-                              </div>
-                          </div>
+                              
+                           </div>
   
                           <div class="contact-icons">
-                              <div class="icon">
-                                  <i class="fas fa-phone"></i>
-                                  <p id="repPhoneNumber">${data.repPhoneNumber || 'Phone'}</p>
+                              <div class="icon qricon">
+                                      <i class="fas fa-qrcode" id= "qricon"></i>
+                                      <p>QR </p>
                               </div>
                               <div class="icon">
-                                  <i class="fab fa-whatsapp"></i>
-                                  <p id="repWhatsappNumber">${data.repWhatsappNumber || 'WhatsApp'}</p>
+                                  <i class="fas fa-phone" id=phonenumber></i>
+                                  <p id="repPhoneNumber">Number</p>
                               </div>
                               <div class="icon">
-                                  <i class="fas fa-envelope"></i>
-                                  <p id="email">${data.email || 'Email'}</p>
+                                  <i class="fab fa-whatsapp" id="whatsapp"></i>
+                                  <p id="repWhatsappNumber">WhatsApp</p>
                               </div>
+                              <div class="icon">
+                                  <i class="fas fa-envelope" id="emailicon"></i> 
+                                  <p id="email">Email</p>
+                              </div>
+
+                              
                           </div>
   
                           <div class="section">
@@ -394,8 +461,9 @@ let uid, username;
                                   <hr class="line-left">
                                   <span class="line-text">Company Details</span>
                                   <hr class="line-right">
-                              </div>                                                    <!---need to work here --->
-
+                              </div>                                                    
+                              
+                              
                                 <div class="icon-row">
                                     <div class="icon" >
                                       <i class="fa-solid fa-handshake" id="abouticon" ></i>
@@ -410,6 +478,30 @@ let uid, username;
                                       <i class="fas fa-info-circle" id="legal-icon"></i>
                                       <p>Legal Info</p>
                                   </div>
+
+                                  <div class="icon" onclick="toggleShareOptions()">
+                                      <i class="fa-solid fa-share-nodes"></i>
+                                      <p> Share </p>
+                              </div>
+
+                              <div id="shareOptions" class="share-options">
+                                    <button class="share-option" onclick="copyLink()">
+                                        <i class="fa-solid fa-link"></i> Copy Link
+                                    </button>
+                                    <button class="share-option" onclick="shareWhatsApp()">
+                                        <i class="fab fa-whatsapp"></i> WhatsApp
+                                    </button>
+                                    <button class="share-option" onclick="shareInstagram()">
+                                        <i class="fab fa-instagram"></i> Instagram
+                                    </button>
+                                    <button class="share-option" onclick="shareEmail()">
+                                        <i class="fas fa-envelope"></i> Email
+                                    </button>
+                                    <button class="share-option" onclick="shareFacebook()">
+                                        <i class="fab fa-facebook"></i> Facebook
+                                    </button>
+                                    <button class="close-btn" onclick="closeShareOptions()">Close</button>
+                               </div>
                                 </div>
 
                                 <div class="modal" id="myModal">
@@ -432,10 +524,10 @@ let uid, username;
                           <div class="section">
                               <div class="line-container">
                                   <hr class="line-left">
-                                  <span class="line-text">Contact</span>
+                                  <span class="line-text">Social</span>
                                   <hr class="line-right">
                               </div>
-                              <div class="icon-row">
+                              <div class="icon-row2">
                                   <div class="icon">
                                       <i class="fa-brands fa-facebook" onclick="window.open('${data.facebook}', '_blank')"></i>
                                   </div>
@@ -449,18 +541,28 @@ let uid, username;
                                       <i class="fas fa-globe" onclick="window.open('${data.website}', '_blank')"></i>
                                   </div>
                               </div>
+                              
+                          </div>
+                          
+                          <div>
+                             <div class="line-container">
+                                  <hr class="line-left">
+                                  <span class="line-text">Address & Directions</span>
+                                  <hr class="line-right">
+                              </div>
+
                               <div class="address">
                                   <p id="address">${data.address || 'Company Address'}</p>
                                   <button onclick="window.open('${data.getDirections}', '_blank')">Get Directions</button>
                               </div>
-                          </div>
+                          </div>    
                       </div>
                   </div>`;
                 
   
               // Insert the created HTML into the container
               userDataContainer.innerHTML = htmlContent;
-
+              
 
               
 
@@ -480,15 +582,30 @@ let uid, username;
               }
 
               
-              icon1.onclick = function() {
+              qricon.onclick = function() {
                 modal.style.display = "flex";
-                modalText.innerHTML = `<img src="${data.qrcodelink || 'QR Code'}">`;
+                modalText.innerHTML = `<img id="qrimg" src="${data.qrcodelink || 'QR Code'}">`;
               }
 
 
               icon3.onclick = function() {
                 modal.style.display = "flex";
                 modalText.textContent = `${data.legalInfo || 'Legal Information'}`;
+              }
+
+              phonenumber.onclick = function (){
+                modal.style.display ="flex";
+                modalText.textContent =`+91 ${data.repPhoneNumber || 'Not Provided'}`;
+              }
+
+              whatsapp.onclick = function (){
+                modal.style.display ="flex";
+                modalText.textContent =`+91 ${data.repWhatsappNumber || 'Not Provided'}`;
+              }
+
+              emailicon.onclick = function (){
+                modal.style.display ="flex";
+                modalText.textContent =` ${data.email || 'Not Provided'}`;
               }
 
     
@@ -622,4 +739,4 @@ function contactForm(){
       alert("Something went wrong. Please try again.");
   });
 
-}
+}    

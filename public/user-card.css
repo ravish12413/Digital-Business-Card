@@ -1,3 +1,10 @@
+/* Your original styles */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+*{
+    font-family: 'Roboto';
+}
 
 body {
     margin: 0;
@@ -17,6 +24,7 @@ body {
     max-width: 840px;           /* Restricts width on larger devices */
     box-sizing: border-box;
 }
+
 #logo-container {
     display: flex;
     align-items: center;
@@ -35,6 +43,7 @@ body {
     font-size: 20px;
     color: #2a4a95;
     margin: 0;
+    text-align: left;
 }
 
 .logo-text p {
@@ -42,9 +51,10 @@ body {
     color: #2a4a95;
     margin: 0;
     font-style: italic;
+    text-align: left;
 }
-#banner {
-    background-image: url(banner.jpg);
+
+#companyBanner {
     width: 100%;
     max-width: 800px; /* Optional: Restrict width on large screens */
     height: 300px; /* Set a fixed height for the banner */
@@ -56,11 +66,10 @@ body {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    #banner {
+    #companyBanner {
         height: 200px; /* Reduce height on smaller screens */
     }
 }
-
 
 .wave-container {
     position: relative;
@@ -77,7 +86,6 @@ body {
 .profile-section {
     position: relative;
     top: -60px; /* Adjust to bring profile section close to the wave */
-    background-color: #fff;
     padding: 20px;
     /* border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); */
@@ -100,10 +108,12 @@ body {
     color: #2a4a95;
     font-weight: 22px;
 }
+
 .profile-image p{
     font-weight: 18px;
     color: #2a4a95;
 }
+
 .profile-image img {
     width: 150px; /* Ensure the image fits the container */
     height: 150px; /* Ensure the image fits the container */
@@ -113,58 +123,12 @@ body {
     margin-top: -210px;
 }
 
-.side-buttons {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-top: -60px; /* Brings the buttons closer to the image */
-}
 
-.side-buttons .Enquiry,
-.side-buttons .Share {
-    font-size: 24px;
-    color:  #2a4a95;
-    border: 0.8px solid  #2a4a95;
-    border-radius: 50%;
-    padding: 2px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    margin: auto;
-}
-
-.side-buttons .Enquiry{
-    margin-left: 30px;
-    margin-top: 160px;
-    
-}
-
-.side-buttons .Share{
-    margin-right: 30px;
-    margin-top: -150px;
-}
-
-.side-buttons .Enquiry:hover,
-.side-buttons .Share:hover {
-    border-color: transparent;
-    
-}
-
-.side-buttons .Enquiry p,
-.side-buttons .Share p {
-    margin-top: 5px;
-    font-size: 12px;
-    color: #2a4a95
-}
 .contact-icons {
     display: flex;
     justify-content: center;
-    gap: 100px;
-    margin-top: -60px;
+    gap: 50px;
+    margin-top: -150px;
 }
 
 .icon {
@@ -173,13 +137,15 @@ body {
     align-items: center; /* Centers icon and text */
     color: #2a4a95;
 }
+
 .icon-row {
     display: flex;
     justify-content: space-around; /* Ensures icons are evenly spaced */
-    gap: 20px; /* Adds space between each icon */
+    /* gap: 0.9; Adds space between each icon */
     margin-top: 20px;
     flex-wrap: nowrap; /* Prevents wrapping to a new line */
 }
+
 .icon i {
     font-size: 24px;
     border: 1px solid #2a4a95;
@@ -190,9 +156,11 @@ body {
     display: flex;
     flex-direction: row;
 }
+
 .icon i:hover{
     border-color: transparent;
 }
+
 .section {
     margin: 40px 0;
     text-align: center;
@@ -229,11 +197,19 @@ body {
     font-weight: bold;
     white-space: nowrap;
 }
+
 .Bio{
     color: #2a4a95;
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
     justify-content: right;
+}
+
+#services{
+    color: #2a4a95;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 15px;
 }
 
 .address{
@@ -243,6 +219,7 @@ body {
     text-align: left;
     margin: 10px 20px;
 }
+
 .address button{
     background-color: #2a4a95; /* Set your desired background color */
     color: white; /* Set text color */
@@ -278,4 +255,192 @@ body {
     width: 300px;
     height:fit-content;
     text-align: center;
+}
+
+.share-options {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 999;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    border-radius: 10px;
+    
+}
+
+/* Share option buttons */
+.share-option {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    align-content: center;
+    
+}
+
+.share-option:hover {
+    background-color: #e0e0e0;
+}
+
+/* Close button */
+.close-btn {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.close-btn:hover {
+    background-color: #e65c50;
+}
+
+.icon-row2 {
+    display: flex;
+    justify-content: space-around; /* Ensures icons are evenly spaced */
+    /* gap: 0.9; Adds space between each icon */
+    margin-top: 20px;
+    flex-wrap: nowrap; /* Prevents wrapping to a new line */
+}
+
+/* Media Queries for Responsiveness */
+
+@media (max-width: 768px) {
+    #banner {
+        height: 200px; /* Reduce height on smaller screens */
+    }
+
+    .profile-image img {
+        width: 120px;
+        height: 120px;
+        margin-top: -70px;
+    }
+
+    .profile-image h2 {
+        font-size: 18px;
+        margin-top: -90px;
+    }
+
+    .profile-image p {
+        font-size: 16px;
+        margin-top: 2px;
+    }
+
+    
+
+    .side-buttons .Enquiry,
+    .side-buttons .Share {
+        width: 35px;
+        height: 35px;
+        font-size: small;
+    }
+
+    .contact-icons {
+        gap: 30px;
+        font-size: small;
+        margin-top: -40px;
+    }
+
+    .icon i {
+        font-size: 20px;
+        padding: 8px;
+    }
+
+    .icon-row{
+        font-size: small;
+    }
+
+    .line-left, .line-right {
+        width: 30%;
+    }
+
+    .line-text {
+        font-size: 18px;
+    }
+
+    .address {
+        font-size: 18px;
+        font-size: small;
+        align-items: center;
+    }
+
+    .address button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+
+    .share-options {
+        width: 200px;
+    }
+
+    #logo-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px; /* Space between logo and banner */
+        /* margin-left: 50px; */
+    }
+    
+    #logo-container img {
+        width: 50px; /* Adjust size as needed */
+        height: auto;
+        /* left: 10px; */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add box shadow */
+        border-radius: 5px; /* Optional: round corners slightly */
+        margin-right: 15px; /* Space between logo and text */
+    }
+    
+    .logo-text h2 {
+        font-size: 20px;
+        color: #2a4a95;
+        margin: 0;
+        text-align: left;
+    }
+    
+    .logo-text p {
+        font-size: 14px;
+        color: #2a4a95;
+        margin: 0;
+        font-style: italic;
+        text-align: left;
+    }
+
+    #services{
+        font-size:small;
+    }
+
+
+    .icon-row2 {
+        display: flex;
+        justify-content: center;
+        align-items: left;
+        gap: 10px;
+        margin-top: 20px;
+        flex-wrap: nowrap; /* Prevents wrapping to a new line */
+    }
+
+
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        width: fit-content;
+        height:fit-content;
+        text-align: center;
+    }
 }
