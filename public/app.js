@@ -1,22 +1,12 @@
-// import firebaseConfig from './firebaseConfig.js';
 // Firebase configuration object (use your configuration details here)
-// const firebaseConfig = {
-//   apiKey: process.env.FIREBASE_API_KEY,
-//   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-//   projectId: process.env.FIREBASE_PROJECT_ID,
-//   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-//   messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-//   appId: process.env.FIREBASE_APP_ID,
-//   measurementId: process.env.FIREBASE_MEASUREMENT_ID
-// };
 const firebaseConfig = {
-  apiKey: "AIzaSyBcNxs1qgOUV9QUXyEHNs_gPyZQHGpZ1B8",
-  authDomain: "dbs3-6a018.firebaseapp.com",
-  databaseURL: "https://dbs3-6a018-default-rtdb.firebaseio.com",
-  projectId: "dbs3-6a018",
-  storageBucket: "dbs3-6a018.firebasestorage.app",
-  messagingSenderId: "476698542874",
-  appId: "1:476698542874:web:41c0c69274d5d95a9522a3"
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID
 };
 
 firebase.initializeApp(firebaseConfig);
