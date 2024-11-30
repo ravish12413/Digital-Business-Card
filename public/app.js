@@ -626,73 +626,6 @@ let uid, username;
   }
 
     
-    //Function to Fetch User Data from db
-    // function fetchUserData() {
-    //   // Extract username from the URL path
-    //   const pathSegments = window.location.pathname.split('/');
-    //   let username = pathSegments[pathSegments.length - 1]; // Last segment
-    //   username = sanitizeUsername(username); // Sanitize username if needed
-
-    //   // const database = firebase.database();
-    //     let userRef = dbRef.child(`Collected Data/${username}`);
-    //     userRef.once('value', (snapshot) => {
-    //       const userDataContainer = document.getElementById('userDataContainer');
-    //       const loadingMessage = document.getElementById('loading');
-  
-    //       if (snapshot.exists()) {
-    //         const data = snapshot.val();
-    //         const companyLogo = data.companyLogo || "Not provided";
-    //         const companyName = data.companyName || "Not provided";
-    //         const companyBanner = data.companyBanner|| "Not provided";
-    //         const repsentativeName = data.repsentativeName || "Not provided";
-    //         const representativePicture = data.representativePicture || "Not provided";
-    //         const representativeDesignation = data.representativeDesignation || "Not provided";
-    //         const repPhoneNumber = data.repPhoneNumber || "Not provided";
-    //         const repWhatsappNumber = data.repWhatsappNumber || "Not provided";
-    //         const email = data.email || "Not provided";
-    //         const about = data.about || "Not provided";
-    //         const legalInfo = data.legalInfo || "Not provided";
-    //         const catalog = data.catalog || "Not provided";
-    //         const services = data.services || "Not provided";
-    //         const address = data.address || "Not provided";
-    //         const website = data.website || "Not provided";
-    //         const facebook = data.facebook || "Not provided";
-    //         const instagram = data.instagram || "Not provided";
-    //         const youtube = data.youtube || "Not provided";
-    //         const twitter = data.twitter || "Not provided";
-    //         const linkedin = data.linkedin || "Not provided";
-  
-    //         loadingMessage.style.display = "none";
-    //         userDataContainer.innerHTML = `
-    //         <h2>User Profile for ${username}</h2>
-    //         <p><strong>Username:</strong> ${username}</p>
-    //         <img src="${companyLogo}">
-    //         <p><strong>Company Name:</strong> ${companyName}</p>
-    //         <img src="${companyBanner}">
-    //         <p><strong>Representative Name:</strong> ${repsentativeName}</p>
-    //         <img src="${representativePicture}">
-    //         <p><strong>Representative Designation:</strong> ${representativeDesignation}</p>
-    //         <p><strong>Representative Phone Number:</strong> ${repPhoneNumber}</p>
-    //         <p><strong>Representative Whatsapp Number:</strong> ${repWhatsappNumber}</p>
-    //         <p><strong>Email:</strong> ${email}</p>
-    //         <p><strong>About:</strong> ${about}</p>
-    //         <p><strong>Legal Info:</strong> ${legalInfo}</p>
-    //         <p><strong>Catalog:</strong> ${catalog}</p>
-    //         <p><strong>Serives:</strong> ${services}</p>
-    //         <p><strong>address:</strong> ${address}</p>
-    //         <p><strong>Website:</strong> ${website}</p>
-    //         <p><strong>Facebook:</strong> ${facebook}</p>
-    //         <p><strong>Instagram:</strong> ${instagram}</p>
-    //         <p><strong>Youtube:</strong> ${youtube}</p>
-    //         <p><strong>Twitter:</strong> ${twitter}</p>
-    //         <p><strong>Linkedin:</strong> ${linkedin}</p>
-    //     `;
-    //       } else {
-    //         loadingMessage.textContent = "User not found.";
-    //       }
-    //     });
-    //   }
-
 //Function to Save Newsletter Subscriptions
 function newsLetter(){
   let newsletteremail = document.getElementById('newsletteremail').value;
@@ -740,3 +673,9 @@ function contactForm(){
   });
 
 }    
+
+
+function previewlink(){
+  const htmlContentq = `<p style="text-align: center;"><a href=" https://digital-business-card-henna-seven.vercel.app/${username}" target="_noblank">Preview Your Business Card</a></p>`;
+  preview.innerHTML = htmlContentq;
+}
