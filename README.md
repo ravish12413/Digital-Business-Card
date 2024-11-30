@@ -111,14 +111,6 @@ NOTE: Make nodes as provided above. Any change in the name of the node will caus
       ".write": "auth != null && root.child('Binding').child(auth.uid).child('username').val() === $username"
     }
   },
-  "Newsletter": {
-    ".read": "false",
-    ".write": "true"
-  },
-  "Contact": {
-    ".read": "false",
-    ".write": "true"
-  }
 }
 ```
 7. Click on Publish. You have setup the Firebase Realtime Database.
