@@ -676,6 +676,6 @@ function contactForm(){
 
 
 function previewlink(){
-  const htmlContentq = `<p style="text-align: center;"><a href=" https://digital-business-card-henna-seven.vercel.app/${username}" target="_noblank">Preview Your Business Card</a></p>`;
+  const htmlContentq = `<p style="text-align: center;"><a href=" https://mmtdbs.vercel.app/${username}" target="_noblank">Preview Your Business Card</a></p>`;
   preview.innerHTML = htmlContentq;
 }
