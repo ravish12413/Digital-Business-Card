@@ -1,21 +1,15 @@
 // Firebase configuration object (use your configuration details here)
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+  apiKey: "AIzaSyBcNxs1qgOUV9QUXyEHNs_gPyZQHGpZ1B8",
+  authDomain: "dbs3-6a018.firebaseapp.com",
+  databaseURL: "https://dbs3-6a018-default-rtdb.firebaseio.com",
+  projectId: "dbs3-6a018",
+  storageBucket: "dbs3-6a018.firebasestorage.app",
+  messagingSenderId: "476698542874",
+  appId: "1:476698542874:web:41c0c69274d5d95a9522a3"
 };
 
-
 firebase.initializeApp(firebaseConfig);
-
-// //Initialize App
-// if (!firebase.apps.length) {
-   
-//   }
 
 //Some Variable Declarations
 const auth = firebase.auth();
