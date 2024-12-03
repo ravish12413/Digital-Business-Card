@@ -125,6 +125,7 @@ NOTE: Make nodes as provided above. Any change in the name of the node will caus
 16. In the left sidebar, click on the Gear icon beside the Project Overview. Then click on Project settings.
 17. On the Settings page, scroll down to Your Apps section. You will find your web app added there. Select Config in the SDK setup and configuration and copy the JSON provided as shown below:
 ![5](https://github.com/user-attachments/assets/17cf59da-f078-4f21-9f7d-ec9f7a351ebb) <br>
+18. Now replace the Firebase Config object in app.js file with your own Firebase Config Object. 
 
 
 
@@ -144,7 +145,7 @@ Before deployment, upload the code in your Github or simply Fork this Repository
 
 
 Vercel will build and deploy the project.
-After deployment, Vercel will provide a live URL (e.g., https://vello.vercel.app).
+After deployment, Vercel will provide a live URL (e.g., https://mmtdbs.vercel.app).
 
 <b>Automatic Deployment on Push:<br></b>
 Vercel is now linked to your GitHub repository.
