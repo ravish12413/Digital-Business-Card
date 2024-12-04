@@ -6,6 +6,7 @@
     font-family: 'Roboto';
 }
 
+
 body {
     margin: 0;
     height: max-content; /* Full viewport height */
@@ -24,6 +25,7 @@ body {
     max-width: 840px;           /* Restricts width on larger devices */
     box-sizing: border-box;
 }
+
 
 #logo-container {
     display: flex;
@@ -64,12 +66,28 @@ body {
     margin-bottom: 20px; /* Space below the banner */
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    #companyBanner {
-        height: 200px; /* Reduce height on smaller screens */
-    }
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Background overlay */
+    justify-content: center;
+    align-items: center;
 }
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    height:fit-content;
+    text-align: center;
+}
+
 
 .wave-container {
     position: relative;
@@ -93,6 +111,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: -85px ;
 }
 
 .profile-image {
@@ -128,7 +147,8 @@ body {
     display: flex;
     justify-content: center;
     gap: 50px;
-    margin-top: -150px;
+    flex-wrap: nowrap;
+    margin-top: -70px;
 }
 
 .icon {
@@ -315,10 +335,12 @@ body {
     flex-wrap: nowrap; /* Prevents wrapping to a new line */
 }
 
+
+
 /* Media Queries for Responsiveness */
 
 @media (max-width: 768px) {
-    #banner {
+    #companyBanner {
         height: 200px; /* Reduce height on smaller screens */
     }
 
@@ -350,7 +372,7 @@ body {
     .contact-icons {
         gap: 30px;
         font-size: small;
-        margin-top: -40px;
+        margin-top: 5px;
     }
 
     .icon i {

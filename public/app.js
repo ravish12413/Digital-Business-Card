@@ -408,7 +408,7 @@ let uid, username;
                               </svg>
                           </div>
   
-                           <div class="profile-section">
+                          <div class="profile-section">
                                
   
                                <div class="profile-image">
@@ -418,27 +418,28 @@ let uid, username;
                               </div>
   
                               
-                           </div>
+                          </div>
   
-                          <div class="contact-icons">
-                              <div class="icon qricon">
+                          <div class="contact-icons" >
+                              <div class="icon">
                                       <i class="fas fa-qrcode" id= "qricon"></i>
                                       <p>QR </p>
                               </div>
                               <div class="icon">
-                                  <i class="fas fa-phone" id=phonenumber></i>
+                                  <a href="tel:${data.repPhoneNumber}" style=" color:#2a4a95; text-decoration:none;"><i class="fas fa-phone" id="phonenumber"></i></a>
                                   <p id="repPhoneNumber">Number</p>
                               </div>
-                              <div class="icon">
-                                  <i class="fab fa-whatsapp" id="whatsapp"></i>
-                                  <p id="repWhatsappNumber">WhatsApp</p>
-                              </div>
-                              <div class="icon">
-                                  <i class="fas fa-envelope" id="emailicon"></i> 
-                                  <p id="email">Email</p>
+
+                               <div class="icon">
+                                 <a style="text-decoration:none;" href="https://wa.me/+91${data.repWhatsappNumber}" target="_blank" style=" color:#2a4a95;"s> <i  class="fab fa-whatsapp" id="whatsapp"></i> <a/>
+                                 <p id="repWhatsappNumber">WhatsApp</p>
                               </div>
 
-                              
+
+                              <div class="icon">
+                                  <a href="mailto:${data.email}" style="color:#2a4a95; text-decoration:none;" id="emailicon"> <i class="fas fa-envelope" ></i> </a>
+                                  <p id="email">Email</p>
+                              </div>  
                           </div>
   
                           <div class="section">
@@ -476,9 +477,7 @@ let uid, username;
                                     <button class="share-option" onclick="shareWhatsApp()">
                                         <i class="fab fa-whatsapp"></i> WhatsApp
                                     </button>
-                                    <button class="share-option" onclick="shareInstagram()">
-                                        <i class="fab fa-instagram"></i> Instagram
-                                    </button>
+                                 
                                     <button class="share-option" onclick="shareEmail()">
                                         <i class="fas fa-envelope"></i> Email
                                     </button>
@@ -555,10 +554,9 @@ let uid, username;
                  var modal = document.getElementById("myModal");
                  var modalText = document.getElementById("modalText");
          
-                 // Get the icons
-                 var icon1 = document.getElementById("qr-icon");
-                 var icon2 = document.getElementById("about-icon");
+                 // Get the iconss
                  var icon3 = document.getElementById("legal-icon");
+                 
          
               
                 abouticon.onclick = function(){ 
@@ -578,20 +576,16 @@ let uid, username;
                 modalText.textContent = `${data.legalInfo || 'Legal Information'}`;
               }
 
-              phonenumber.onclick = function (){
-                modal.style.display ="flex";
-                modalText.textContent =`+91 ${data.repPhoneNumber || 'Not Provided'}`;
-              }
+              // phonenumber.onclick = function(){
+              //   modal.style.display ="flex";
+              //   modalText.textContent =`+91 ${data.repPhoneNumber || 'Not Provided'}`;
+              // }
 
-              whatsapp.onclick = function (){
-                modal.style.display ="flex";
-                modalText.textContent =`+91 ${data.repWhatsappNumber || 'Not Provided'}`;
-              }
 
-              emailicon.onclick = function (){
-                modal.style.display ="flex";
-                modalText.textContent =` ${data.email || 'Not Provided'}`;
-              }
+              // emailicon.onclick = function(){
+              //   modal.style.display ="flex";
+              //   modalText.textContent =` ${data.email || 'Not Provided'}`;
+              // }
 
     
                // Close the modal when clicking anywhere outside the modal content
