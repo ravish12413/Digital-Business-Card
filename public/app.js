@@ -431,10 +431,9 @@ let uid, username;
                               </div>
 
                                <div class="icon">
-                                 <a style="text-decoration:none;" href="https://wa.me/+91${data.repWhatsappNumber}" target="_blank" style=" color:#2a4a95;"s> <i  class="fab fa-whatsapp" id="whatsapp"></i> <a/>
+                                 <a style="text-decoration:none;" href="https://wa.me/+91${data.repWhatsappNumber}" target="_blank" style="color:#2a4a95;"> <i  class="fab fa-whatsapp" id="whatsapp"></i> </a>
                                  <p id="repWhatsappNumber">WhatsApp</p>
                               </div>
-
 
                               <div class="icon">
                                   <a href="mailto:${data.email}" style="color:#2a4a95; text-decoration:none;" id="emailicon"> <i class="fas fa-envelope" ></i> </a>
