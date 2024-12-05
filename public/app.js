@@ -303,7 +303,7 @@ let uid, username;
     function injectCSS() {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = './user-card.css';  
+      link.href = './temp2.css';  
       document.head.appendChild(link);
 
       const faLink = document.createElement('link');
