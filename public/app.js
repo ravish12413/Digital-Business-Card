@@ -303,7 +303,7 @@ let uid, username;
     function injectCSS() {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = './user-card.css';  
+      link.href = './user-card2.css';  
       document.head.appendChild(link);
 
       const faLink = document.createElement('link');
@@ -389,6 +389,7 @@ let uid, username;
                   <title>Digital Business Card ${username}</title>
                   <head>
                   <div id="main-look">
+                  <div id="mmain-look">
                       <div id="logo-container">
                           <img src="${data.companyLogo || 'default-logo.png'}" id="companyLogo" alt="Company Logo">
                           <div class="logo-text">
@@ -540,6 +541,7 @@ let uid, username;
                               </div>
                           </div>    
                       </div>
+                      <div>
                   </div>`;
                 
   

@@ -1,0 +1,499 @@
+/* Your original styles */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+*{
+    font-family: 'Roboto';
+}
+
+body {
+    margin: 5;
+    height: max-content; /* Full viewport height */
+    display: flex;
+    justify-content: center;  /* Horizontal centering */
+    align-items: center;      /* Vertical centering */
+}
+
+#main-look {
+    background-color: #1c1a1a; /* Initial background color */
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 10px rgba(253, 113, 113, 0.1);
+    text-align: center;
+    width: 100%;               /* Full width on small devices */
+    max-width: 840px;          /* Restricts width on larger devices */
+    box-sizing: border-box;
+    
+}
+#mmain-look {
+    position: relative; /* To stack the background animation behind the content */
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 10px rgba(2, 2, 2, 0.1);
+    text-align: center;
+    width: 100%;              
+    max-width: 840px;         
+    box-sizing: border-box;
+    overflow: hidden; /* Prevent animation from spilling outside the container */
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 50%, transparent 50%);
+    background-size: 50px 100%; /* Set size of repeating lines */
+    animation: moving-lines 4s linear infinite;
+}
+
+/* Keyframes for moving line animation */
+@keyframes moving-lines {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 50px 0; /* Moves the lines horizontally */
+    }
+}
+
+
+
+
+
+#logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Space between logo and banner */
+}
+
+#logo-container img {
+    width: 80px; /* Adjust size as needed */
+    height: auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add box shadow */
+    border-radius: 5px; /* Optional: round corners slightly */
+    margin-right: 15px; /* Space between logo and text */
+}
+
+.logo-text h2 {
+    font-size: 20px;
+    color: #ffffff;
+    margin: 0;
+    text-align: left;
+}
+
+.logo-text p {
+    font-size: 14px;
+    color: #ffffff;
+    margin: 0;
+    font-style: italic;
+    text-align: left;
+}
+
+#companyBanner {
+    width: 100%;
+    max-width: 800px; /* Optional: Restrict width on large screens */
+    height: 300px; /* Set a fixed height for the banner */
+    background-size: cover; /* Ensure the background image covers the area */
+    background-repeat: no-repeat;
+    background-position: center; /* Center the image */
+    margin-bottom: 20px; /* Space below the banner */
+    border-radius: 20px;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(22, 21, 21, 0.5); /* Background overlay */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    height:fit-content;
+    text-align: center;
+}
+
+
+.wave-container {
+    position: relative;
+    top: -75px; /* Adjust to move the wave over the banner */
+    overflow: hidden;
+}
+
+.wave-container svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.profile-section {
+    position: relative;
+    top: -70px; /* Adjust to bring profile section close to the wave */
+    padding: 20px;
+    /* border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: -85px ;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+}
+
+.profile-image h2{
+    width: 250px;
+    margin: auto;
+    margin-top: -80px;
+    margin-left: -50px;
+    color: #ffffff;
+    font-weight: 22px;
+}
+
+.profile-image p{
+    font-weight: 18px;
+    color: #ffffff;
+}
+
+.profile-image img {
+    width: 150px; /* Ensure the image fits the container */
+    height: 150px; /* Ensure the image fits the container */
+    border-radius: 50%; /* Ensure the image is circular */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    margin-bottom: 120px;
+    margin-top: -210px;
+}
+
+
+.contact-icons {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: nowrap;
+    margin-top: -70px;
+}
+
+.icon {
+    display: flex;
+    flex-direction: column; /* Makes icon and text stack vertically */
+    align-items: center; /* Centers icon and text */
+    color: #ffffff;
+}
+
+.icon-row {
+    display: flex;
+    justify-content: space-around; /* Ensures icons are evenly spaced */
+    /* gap: 0.9; Adds space between each icon */
+    margin-top: 20px;
+    flex-wrap: nowrap; /* Prevents wrapping to a new line */
+    
+}
+
+.icon i {
+    font-size: 30px;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.icon i:hover{
+    border-color: transparent;
+}
+
+.section {
+    margin: 40px 0;
+    text-align: center;
+    position: relative;
+}
+
+.line-container {
+    display: flex; /* Use flexbox to align items in a row */
+    align-items: center; /* Center vertically */
+    width: 100%;
+    margin-top: -10px;
+}
+
+.line-left, .line-right {
+    width: 40%;
+    height: 2px;
+    background-color: #ffffff;
+}
+
+.line-left {
+    width: 45%; /* Left line width */
+   /* margin-right: 10px;  Space between line and text */
+}
+
+.line-right {
+    width: 45%; /* Right line width */
+    /*margin-left: 10px;  Space between text and line */
+}
+
+.line-text {
+    color: #ffffff;
+    font-size: 22px;
+    margin: 0 10px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.Bio{
+    color: #ffffff;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: right;
+}
+
+#services{
+    color: #ffffff;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 15px;
+}
+
+.address{
+    color: #ffffff;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+    margin: 10px 20px;
+}
+
+.address button{
+    background-color: #ffffff; /* Set your desired background color */
+    color: rgb(9, 9, 9); /* Set text color */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Add padding for height and width */
+    border-radius: 25px; /* This makes the button curved */
+    font-size: 16px; /* Set text size */
+    font-weight: bold; /* Bold text if needed */
+    cursor: pointer; /* Change cursor on hover */
+    text-align: center; /* Center text inside button */
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for depth */
+    margin-top: 5px;
+    
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Background overlay */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    height:fit-content;
+    text-align: center;
+}
+
+.share-options {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 999;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    border-radius: 10px;
+    
+}
+
+/* Share option buttons */
+.share-option {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    align-content: center;
+    
+}
+
+.share-option:hover {
+    background-color: #e0e0e0;
+}
+
+/* Close button */
+.close-btn {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.close-btn:hover {
+    background-color: #e65c50;
+}
+
+.icon-row2 {
+    display: flex;
+    justify-content: space-around; /* Ensures icons are evenly spaced */
+    /* gap: 0.9; Adds space between each icon */
+    margin-top: 20px;
+    flex-wrap: nowrap; /* Prevents wrapping to a new line */
+}
+
+
+
+/* Media Queries for Responsiveness */
+
+@media (max-width: 768px) {
+    #companyBanner {
+        height: 200px; /* Reduce height on smaller screens */
+    }
+
+    .profile-image img {
+        width: 120px;
+        height: 120px;
+        margin-top: -70px;
+    }
+
+    .profile-image h2 {
+        font-size: 18px;
+        margin-top: -90px;
+    }
+
+    .profile-image p {
+        font-size: 16px;
+        margin-top: 2px;
+    }
+
+    
+
+    .side-buttons .Enquiry,
+    .side-buttons .Share {
+        width: 35px;
+        height: 35px;
+        font-size: small;
+    }
+
+    .contact-icons {
+        gap: 30px;
+        font-size: small;
+        margin-top: 5px;
+    }
+
+    .icon i {
+        font-size: 30px;
+        padding: 8px;
+        color: #ffffff;
+    }
+
+    .icon-row{
+        font-size: small;
+    }
+
+    .line-left, .line-right {
+        width: 30%;
+    }
+
+    .line-text {
+        font-size: 18px;
+    }
+
+    .address {
+        font-size: 18px;
+        font-size: small;
+        align-items: center;
+    }
+
+    .address button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+
+    .share-options {
+        width: 200px;
+    }
+
+    #logo-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px; /* Space between logo and banner */
+        /* margin-left: 50px; */
+    }
+    
+    #logo-container img {
+        width: 50px; /* Adjust size as needed */
+        height: auto;
+        /* left: 10px; */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add box shadow */
+        border-radius: 5px; /* Optional: round corners slightly */
+        margin-right: 15px; /* Space between logo and text */
+    }
+    
+    .logo-text h2 {
+        font-size: 20px;
+        color: #ffffff;
+        margin: 0;
+        text-align: left;
+    }
+    
+    .logo-text p {
+        font-size: 14px;
+        color: #ffffff;
+        margin: 0;
+        font-style: italic;
+        text-align: left;
+    }
+
+    #services{
+        font-size:small;
+    }
+
+
+    .icon-row2 {
+        display: flex;
+        justify-content: center;
+        align-items: left;
+        gap: 10px;
+        margin-top: 20px;
+        flex-wrap: nowrap; /* Prevents wrapping to a new line */
+    }
+
+
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        width: fit-content;
+        height:fit-content;
+        text-align: center;
+    }
+}
