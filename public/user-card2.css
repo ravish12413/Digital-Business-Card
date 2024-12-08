@@ -52,8 +52,6 @@ body {
 
 
 
-
-
 #logo-container {
     display: flex;
     align-items: center;
@@ -283,6 +281,10 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for depth */
     margin-top: 5px;
     
+}
+
+.gallery{
+    display:none;
 }
 
 .modal {
