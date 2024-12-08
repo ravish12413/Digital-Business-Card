@@ -6,6 +6,10 @@
     font-family: 'Roboto';
 }
 
+.gallery {
+    display: none;  
+}
+
 
 body {
     margin: 0;
