@@ -413,7 +413,7 @@ let uid, username;
                           <img src="${data.companyBanner || 'default-banner.png'}" id="companyBanner" alt="Company Banner">
                       </div>
   
-                      <div class="intro">
+                       <div class="intro">
                           <div class="wave-container">
                               <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 209 33">
                                   <path fill="white" d="..."></path>
@@ -432,7 +432,7 @@ let uid, username;
                               
                           </div>
   
-                          <div class="contact-icons" >
+                           <div class="contact-icons" >
                               <div class="icon">
                                       <i class="fas fa-qrcode" id= "qricon"></i>
                                       <p>QR </p>
@@ -453,35 +453,36 @@ let uid, username;
                               </div>  
                           </div>
   
-                          <div class="section">
-                              <div class="line-container">
+                           <div class="section">
+                               <div class="line-container">
                                   <hr class="line-left">
                                   <span class="line-text">Company Details</span>
                                   <hr class="line-right">
-                              </div>                                                    
+                               </div>                                                    
                               
                               
                                 <div class="icon-row">
                                     <div class="icon" >
                                       <i class="fa-solid fa-handshake" id="abouticon" ></i>
                                       <p>About</p>
-                                  </div>
-                                  <div class="icon">
+                                   </div>
+                                   <div class="icon">
                                       <i class="fas fa-book" id="catalogicon" onclick="window.open('${data.catalog}', '_blank')"></i>
                                       <p>Catalog</p>
-                                  </div>
+                                   </div>
                                   
-                                  <div class="icon">
+                                   <div class="icon">
                                       <i class="fas fa-info-circle" id="legal-icon"></i>
                                       <p>Legal Info</p>
-                                  </div>
+                                   </div>
 
-                                  <div class="icon" onclick="toggleShareOptions()">
+                                   <div class="icon" onclick="toggleShareOptions()">
                                       <i class="fa-solid fa-share-nodes"></i>
                                       <p> Share </p>
-                              </div>
+                                   </div>
 
-                              <div id="shareOptions" class="share-options">
+                                  <div id="shareOptions" class="share-options">
+
                                     <button class="share-option" onclick="copyLink()">
                                         <i class="fa-solid fa-link"></i> Copy Link
                                     </button>
@@ -496,16 +497,16 @@ let uid, username;
                                         <i class="fab fa-facebook"></i> Facebook
                                     </button>
                                     <button class="close-btn" onclick="closeShareOptions()">Close</button>
+                                 </div>
                                </div>
-                                </div>
 
-                                <div class="modal" id="myModal">
+                                 <div class="modal" id="myModal">
                                     <div class="modal-content">
                                     <p id="modalText">This is a modal box!</p>
                                     </div>
                                 </div>
 
-                          </div>
+                         </div>
 
                           <div class="section">
                                <div class="line-container">
@@ -537,13 +538,32 @@ let uid, username;
                                   </div>
                               </div>
                               
-                          </div>
+                       </div>
 
-                          <div class="gallery">
-                              <img src="${data.gallery1}" id="gallery1pic" alt="Gallery Image">
-                              <img src="${data.gallery2}" id="gallery2pic" alt="Gallery Image">
-                              <img src="${data.gallery3}" id="gallery3pic" alt="Gallery Image">
+                          
+
+                           <div class="slideshow-container" id="slideshow1">
+                              <!-- Slide 1 -->
+                              <div class="slide">
+                               <img src="${data.gallery1}" alt="Slide 1">
+
+                              </div>
+                              
+                              <!-- Slide 2 -->
+                              <div class="slide">
+                               <img src="${data.gallery2}" alt="Slide 2">
+                              </div>
+                              
+                              <!-- Slide 3 -->
+                              <div class="slide">
+                               <img src="${data.gallery1}" alt="Slide 3">
+                              </div>
+
+                              <!-- Navigation buttons -->
+                              <a class="prev" >&#10094;</a>
+                              <a class="next" >&#10095;</a>
                           </div>
+                           
                           
                           <div>
                              <div class="line-container">
@@ -558,14 +578,14 @@ let uid, username;
                               </div>
                           </div>    
                       </div>
+                      
                   </div>`;
                 
   
               // Insert the created HTML into the container
               userDataContainer.innerHTML = htmlContent;
-              
-
-              
+                
+              initSlideshow("slideshow1");
 
                 //modal box opening 
                  var modal = document.getElementById("myModal");
@@ -674,4 +694,59 @@ function contactForm(){
 function previewlink(){
   const htmlContentq = `<p style="text-align: center;"><a href=" https://mmtdbs.vercel.app/${username}" target="_noblank">Preview Your Business Card</a></p>`;
   preview.innerHTML = htmlContentq;
+}
+
+
+function initSlideshow(slideshowId) {
+  
+  let slideIndex = 0;
+  const slides = document.querySelectorAll(`#${slideshowId} .slide`);
+
+  // Function to show the current slide
+  function showSlide() {
+      // Hide all slides
+      slides.forEach(slide => {
+          slide.style.display = "none";
+      });
+
+      // Show the current slide
+      slides[slideIndex].style.display = "block";
+  }
+
+  // Function to change the slide when clicking the buttons
+  function changeSlide(n) {
+      slideIndex += n;
+      console.log(`Current slide index: ${slideIndex}`);
+
+      if (slideIndex >= slides.length) {
+          slideIndex = 0; // Loop back to the first slide
+      }
+      if (slideIndex < 0) {
+          slideIndex = slides.length - 1; // Loop to the last slide
+      }
+
+      showSlide();
+  }
+
+  // Initialize the slideshow
+  showSlide();
+
+  // Set interval for automatic slideshow every 3 seconds (3000ms)
+  setInterval(() => {
+      changeSlide(1); // Automatically move to the next slide
+  }, 3000);
+
+  // Attach event listeners to the buttons (optional if you want manual controls)
+  const prevButton = document.querySelector(`#${slideshowId} .prev`);
+  const nextButton = document.querySelector(`#${slideshowId} .next`);
+
+  if (prevButton && nextButton) {
+      prevButton.addEventListener('click', function() {
+          changeSlide(-1);
+      });
+
+      nextButton.addEventListener('click', function() {
+          changeSlide(1);
+      });
+  }
 }

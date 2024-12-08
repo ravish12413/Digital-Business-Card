@@ -49,6 +49,7 @@
   .intro {
     width: 90%;
     max-width: 453px;
+    height: fit-content;
     width: 453px;
     background-color: #f0fff0;
     border-radius: 50px;
@@ -161,15 +162,16 @@
   
   .icon-row {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     font-size: 32px;
+    justify-content: space-evenly;
   }
   
   .icon-row2 {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
     gap: 30px;
     align-items: center;
   }
@@ -357,4 +359,104 @@
       height: 250px;
     }
   }
-  
+
+/* Slideshow Container */
+.slideshow-container {
+  min-height: 230px;
+  max-width: 453px;
+  background-color: white;
+  color: black;
+  margin: 10px auto;  /* Center the slideshow horizontally */
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 25px;
+  height: fit-content;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 18px;
+  position: relative;
+  width: 100%; /* Ensure the container takes up 100% of available space */
+  max-width: 453px; /* Limit maximum width */
+}
+
+/* Hide all slides initially */
+.slide {
+  display: none;
+}
+
+/* Ensure image stretches to fill the container */
+.slide img {
+  width: 100%;   /* Make images stretch to fill the container */
+  height: auto;  /* Maintain the aspect ratio */
+  max-width: 100%; /* Prevent the image from growing beyond container width */
+}
+
+/* Navigation buttons */
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark background for the buttons */
+  color: white;
+  font-size: 24px;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1;
+  transition: 0.3s;
+  margin: auto;
+  transform: translateY(-50%);  /* Center buttons vertically */
+}
+
+/* Position the "Previous" button on the left */
+.prev {
+  left: 10px;
+}
+
+/* Position the "Next" button on the right */
+.next {
+  right: 10px;
+}
+
+/* Hover effect for navigation buttons */
+.prev:hover, .next:hover {
+  background-color: rgba(0, 0, 0, 0.8); /* Darken the button on hover */
+}
+
+/* Responsive adjustments for tablets (max-width: 768px) */
+@media (max-width: 768px) {
+  .slideshow-container {
+    width: 90%;  /* Adjust width for tablets */
+    min-height: 200px;
+    margin-top: 15px;
+    padding: 10px;
+  }
+
+  /* Adjust button size and positioning for tablets */
+  .prev, .next {
+    padding: 12px;
+    font-size: 20px;
+    margin-top: 20%;  /* Adjust positioning */
+  }
+}
+
+/* Responsive adjustments for small screens (smartphones) */
+@media (max-width: 480px) {
+  .slideshow-container {
+    width: 95%;  /* Use more space on smaller screens */
+    min-height: 180px;
+    padding: 8px;
+  }
+
+  /* Adjust button size and positioning for smartphones */
+  .prev, .next {
+    padding: 10px;
+    font-size: 18px;
+    margin-top: 20%;  /* Adjust positioning */
+  }
+
+  /* Ensure image fits well on small screens */
+  .slide img {
+    width: 100%;
+    height: auto;
+  }
+}
