@@ -180,6 +180,9 @@ let uid, username;
             catalog.value = data.catalog || "Not Provided";
             services.value = data.services || "Not Provided";
             address.value = data.address || "Not Provided";
+            gallery1.value = data.gallery1 || "Not Provided";
+            gallery2.value = data.gallery2 || "Not Provided";
+            gallery3.value = data.gallery3 || "Not Provided";
             website.value = data.website || "Not Provided";
             facebook.value = data.facebook || "Not Provided";
             instagram.value = data.instagram || "Not Provided";
@@ -210,6 +213,9 @@ let uid, username;
         let catalog = document.getElementById('catalog').value;
         let services = document.getElementById('services').value;
         let address = document.getElementById('address').value;
+        let gallery1 = document.getElementById('gallery1').value;
+        let gallery2 = document.getElementById('gallery2').value;
+        let gallery3 = document.getElementById('gallery3').value;
         let website = document.getElementById('website').value;
         let facebook = document.getElementById('facebook').value;
         let instagram = document.getElementById('instagram').value;
@@ -219,12 +225,12 @@ let uid, username;
         let getDirections = document.getElementById('getDirections').value;
         let editBtn = document.getElementById('editBtn').value;
         let saveBtn = document.getElementById('saveBtn').value;
-        saveMessage(companyLogo, companyName,companyTagline,qrcodelink, companyBanner, representativeName, representativePicture, representativeDesignation, repPhoneNumber, repWhatsappNumber, email, about, legalInfo, catalog, services, address, website, facebook, instagram, youtube, twitter, linkedin,getDirections);
+        saveMessage(companyLogo, companyName,companyTagline,qrcodelink, companyBanner, representativeName, representativePicture, representativeDesignation, repPhoneNumber, repWhatsappNumber, email, about, legalInfo, catalog, services, address,gallery1, gallery2, gallery3, website, facebook, instagram, youtube, twitter, linkedin,getDirections);
       }
       
 
       // Function to update Data on Card Dashboard Page &if saved successfully, toggle the save button back to edit
-      function saveMessage(companyLogo, companyName,companyTagline, qrcodelink, companyBanner, representativeName, representativePicture, representativeDesignation, repPhoneNumber, repWhatsappNumber, email, about, legalInfo, catalog, services, address, website, facebook, instagram, youtube, twitter, linkedin, getDirections) {
+      function saveMessage(companyLogo, companyName,companyTagline, qrcodelink, companyBanner, representativeName, representativePicture, representativeDesignation, repPhoneNumber, repWhatsappNumber, email, about, legalInfo, catalog, services, address, gallery1,gallery2, gallery3,website, facebook, instagram, youtube, twitter, linkedin, getDirections) {
         let userRef = dbRef.child(`Collected Data/${username}`);
         userRef.set({
         companyLogo: companyLogo,
@@ -242,6 +248,9 @@ let uid, username;
         legalInfo: legalInfo,
         catalog: catalog,
         services: services,
+        gallery1 : gallery1,
+        gallery2: gallery2,
+        gallery3: gallery3,
         address: address,
         website: website,
         facebook: facebook,
@@ -280,6 +289,9 @@ let uid, username;
         catalog.readOnly = isViewMode;
         services.readOnly = isViewMode;
         address.readOnly = isViewMode;
+        gallery1.readOnly = isViewMode;
+        gallery2.readOnly = isViewMode;
+        gallery3.readOnly = isViewMode;
         website.readOnly = isViewMode;
         facebook.readOnly = isViewMode;
         instagram.readOnly = isViewMode;
@@ -526,6 +538,12 @@ let uid, username;
                                   </div>
                               </div>
                               
+                          </div>
+
+                          <div class="gallery">
+                              <img src="${data.gallery1}" id="gallery1pic" alt="Gallery Image">
+                              <img src="${data.gallery2}" id="gallery2pic" alt="Gallery Image">
+                              <img src="${data.gallery3}" id="gallery3pic" alt="Gallery Image">
                           </div>
                           
                           <div>
