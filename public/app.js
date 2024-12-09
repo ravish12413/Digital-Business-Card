@@ -316,7 +316,7 @@ let uid, username;
     function injectCSS() {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = './user-card2.css';
+      link.href = './companytemplate2.css';
 
       document.head.appendChild(link);
 
@@ -403,6 +403,7 @@ let uid, username;
                   <title>Digital Business Card ${username}</title>
                   <head>
                   <div id="main-look">
+                    <div id="main-look2">
                       <div id="logo-container">
                           <img src="${data.companyLogo || 'default-logo.png'}" id="companyLogo" alt="Company Logo">
                           <div class="logo-text">
@@ -580,6 +581,7 @@ let uid, username;
                               </div>
                           </div>    
                       </div>
+                    </div>
                   </div>`;
                 
   
@@ -643,60 +645,6 @@ let uid, username;
   }
 
     
-//Function to Save Newsletter Subscriptions
-function newsLetter(){
-  let newsletteremail = document.getElementById('newsletteremail').value;
-  let userRef = dbRef.child(`Newsletter`);
-  let newMessageRef = userRef.push();
-  newMessageRef.set({
-    email: newsletteremail
-  })
-  .then(() => {
-    // Display success message
-    alert("Thank you for subscribing to our newsletter!");
-    document.getElementById('newsletteremail').value = ""; // Clear the input field
-  })
-  .catch((error) => {
-    // Handle errors here
-    console.error("Error saving newsletter email:", error);
-    alert("Something went wrong. Please try again.");
-  });
-
-}
-
-//Function to Save Contact Form Submissions
-function contactForm(){
-  let contactname = document.getElementById('contactname').value;
-  let contactemail = document.getElementById('contactemail').value;
-  let contactsubject = document.getElementById('contactsubject').value;
-  let contactmessage = document.getElementById('contactmessage').value;
-  let userRef = dbRef.child(`Contact`);
-  let newMessageRef = userRef.push();
-  newMessageRef.set({
-    Name: contactname,
-    Email: contactemail,
-    Subject: contactsubject,
-    Message: contactmessage, 
-  })
-  .then(() => {
-      // Display success message
-      alert("We have received your message!");
-      document.getElementById('newsletteremail').value = ""; // Clear the input field
-  })
-  .catch((error) => {
-      // Handle errors here
-      console.error("Error", error);
-      alert("Something went wrong. Please try again.");
-  });
-
-}    
-
-
-function previewlink(){
-  const htmlContentq = `<p style="text-align: center;"><a href=" https://mmtdbs.vercel.app/${username}" target="_noblank">Preview Your Business Card</a></p>`;
-  preview.innerHTML = htmlContentq;
-}
-
 
 function initSlideshow(slideshowId) {
   
