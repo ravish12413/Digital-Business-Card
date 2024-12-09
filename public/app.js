@@ -315,7 +315,7 @@ let uid, username;
     function injectCSS() {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = './temp2.css';  
+      link.href = './professionaltemplate.css';  
       document.head.appendChild(link);
 
       const faLink = document.createElement('link');
