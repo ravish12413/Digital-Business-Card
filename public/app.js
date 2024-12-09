@@ -316,7 +316,8 @@ let uid, username;
     function injectCSS() {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = './companytemplate1.css';  
+      link.href = './user-card2.css';
+
       document.head.appendChild(link);
 
       const faLink = document.createElement('link');
@@ -579,7 +580,6 @@ let uid, username;
                               </div>
                           </div>    
                       </div>
-                      
                   </div>`;
                 
   
