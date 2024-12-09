@@ -311,11 +311,12 @@ let uid, username;
     function sanitizeUsername(username) {
         return username.replace(/[.#$[\]]/g, '_');
     }
-    //ravishh
+    
+    
     function injectCSS() {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = './professionaltemplate.css';  
+      link.href = './companytemplate1.css';  
       document.head.appendChild(link);
 
       const faLink = document.createElement('link');
