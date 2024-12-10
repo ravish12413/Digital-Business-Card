@@ -164,6 +164,7 @@ let uid, username;
     //Function to populate data from db into the Form
     function populateFormFields(data){
         console.log("Fetched data:", data);
+            template.value = data.template || "companytemplate1";
             companyLogo.value = data.companyLogo || "Not Provided";
             companyName.value = data.companyName || "Not Provided";
             companyTagline.value = data.companyTagline || "Not Provided";
@@ -197,6 +198,7 @@ let uid, username;
     //Function that is called on the click of save button. Accessing DOM elements value and passing it into saveMessage function
     function submitForm() {
         // DOM elements
+        let template = document.getElementById('template').value;
         let companyLogo = document.getElementById('companyLogo').value;
         let companyName = document.getElementById('companyName').value;
         let companyTagline = document.getElementById('companyTagline').value;
@@ -225,14 +227,15 @@ let uid, username;
         let getDirections = document.getElementById('getDirections').value;
         let editBtn = document.getElementById('editBtn').value;
         let saveBtn = document.getElementById('saveBtn').value;
-        saveMessage(companyLogo, companyName,companyTagline,qrcodelink, companyBanner, representativeName, representativePicture, representativeDesignation, repPhoneNumber, repWhatsappNumber, email, about, legalInfo, catalog, services, address,gallery1, gallery2, gallery3, website, facebook, instagram, youtube, twitter, linkedin,getDirections);
+        saveMessage(template,companyLogo, companyName,companyTagline,qrcodelink, companyBanner, representativeName, representativePicture, representativeDesignation, repPhoneNumber, repWhatsappNumber, email, about, legalInfo, catalog, services, address,gallery1, gallery2, gallery3, website, facebook, instagram, youtube, twitter, linkedin,getDirections);
       }
       
 
       // Function to update Data on Card Dashboard Page &if saved successfully, toggle the save button back to edit
-      function saveMessage(companyLogo, companyName,companyTagline, qrcodelink, companyBanner, representativeName, representativePicture, representativeDesignation, repPhoneNumber, repWhatsappNumber, email, about, legalInfo, catalog, services, address, gallery1,gallery2, gallery3,website, facebook, instagram, youtube, twitter, linkedin, getDirections) {
+      function saveMessage(template,companyLogo, companyName,companyTagline, qrcodelink, companyBanner, representativeName, representativePicture, representativeDesignation, repPhoneNumber, repWhatsappNumber, email, about, legalInfo, catalog, services, address, gallery1,gallery2, gallery3,website, facebook, instagram, youtube, twitter, linkedin, getDirections) {
         let userRef = dbRef.child(`Collected Data/${username}`);
         userRef.set({
+        template: template,
         companyLogo: companyLogo,
         companyName: companyName,
         companyTagline: companyTagline,
@@ -273,6 +276,7 @@ let uid, username;
     
     //Function to toggle between Edit mode and View mode
     function toggleViewMode(isViewMode) {
+        template.disabled = isViewMode;
         companyLogo.readOnly = isViewMode;
         companyName.readOnly = isViewMode;
         companyTagline.readOnly = isViewMode;
@@ -312,20 +316,65 @@ let uid, username;
         return username.replace(/[.#$[\]]/g, '_');
     }
     
+    function extractTemplate(username_param) {
+      username= username_param;
+      const userRef = dbRef.child(`Collected Data/${username}`);
     
-    function injectCSS() {
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = './companytemplate2.css';
-
-      document.head.appendChild(link);
-
-      const faLink = document.createElement('link');
-      faLink.rel = 'stylesheet';
-      faLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';  // Font Awesome CDN
-      document.head.appendChild(faLink);
+      userRef.once('value')
+        .then(snapshot => {
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            const templateValue = data.template; // Fetch the template field
+            console.log("Fetched template:", templateValue);
+    
+            // Call the injectCSS function with the fetched template value
+            injectCSS(templateValue);
+          } else {
+            console.error("No data available for the specified username.");
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching template data:", error);
+        });
     }
     
+    function injectCSS(data) {
+
+      // Remove any previously injected stylesheet links if needed
+      const existingStyles = document.querySelectorAll('link[rel="stylesheet"][data-dynamic="true"]');
+      existingStyles.forEach((style) => style.remove());
+    
+      // Determine the CSS file based on data.template using a switch statement
+      let cssFile;
+      switch (data) {
+        case 'companytemplate1':
+          cssFile = './companytemplate1.css';
+          break;
+        case 'professionaltemplate':
+          cssFile = './professionaltemplate.css';
+          break;
+        case 'companytemplate2':
+          cssFile = './companytemplate2.css';
+          break;
+        default:
+          cssFile = './default.css'; // Fallback CSS
+          break;
+      }
+    
+      // Inject the determined CSS file
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = cssFile;
+      link.setAttribute('data-dynamic', 'true'); // Mark this as dynamically added for easy removal
+      document.head.appendChild(link);
+    
+      // Inject Font Awesome CDN
+      const faLink = document.createElement('link');
+      faLink.rel = 'stylesheet';
+      faLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
+      faLink.setAttribute('data-dynamic', 'true'); // Mark as dynamic
+      document.head.appendChild(faLink);
+    }
     
     function toggleShareOptions() {
       const shareOptions = document.getElementById('shareOptions');
@@ -383,11 +432,11 @@ let uid, username;
     
 // you can remove this code if you have new syle 
     function fetchUserData() {
-      injectCSS();
+      
       const pathSegments = window.location.pathname.split('/');
       let username = pathSegments[pathSegments.length - 1];
       username = sanitizeUsername(username);
-  
+      extractTemplate(username);
       let userRef = dbRef.child(`Collected Data/${username}`);
       userRef.once('value', (snapshot) => {
           const userDataContainer = document.getElementById('userDataContainer');
@@ -395,9 +444,7 @@ let uid, username;
   
           if (snapshot.exists()) {
               const data = snapshot.val();
-  
               // Dynamically create the HTML structure
-              // confusion in company details
               const htmlContent = `
                   <head>    
                   <title>Digital Business Card ${username}</title>
@@ -698,4 +745,4 @@ function initSlideshow(slideshowId) {
           changeSlide(1);
       });
   }
-}
+};
