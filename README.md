@@ -98,7 +98,7 @@ NOTE: Make nodes as provided above. Any change in the name of the node will caus
 6. After you have created the structure of your database, click on rules and update it with the following: <br>
 
 ```json
-"rules": {
+{"rules": {
   "Binding": {
     "$uid": {
       ".read": "auth != null && auth.uid === $uid",
@@ -111,6 +111,7 @@ NOTE: Make nodes as provided above. Any change in the name of the node will caus
       ".write": "auth != null && root.child('Binding').child(auth.uid).child('username').val() === $username"
     }
   },
+}
 }
 ```
 7. Click on Publish. You have setup the Firebase Realtime Database.
