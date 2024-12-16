@@ -356,8 +356,17 @@ let uid, username;
         case 'companytemplate2':
           cssFile = './companytemplate2.css';
           break;
+        case 'companytemplate3':
+          cssFile = './companytemplate3.css';
+          break;
+        case 'companytemplate4':
+          cssFile = './companytemplate4.css';
+          break;
+        case 'companytemplate5':
+          cssFile = './companytemplate5.css';
+          break;
         default:
-          cssFile = './default.css'; // Fallback CSS
+          cssFile = './companytemplate1.css'; // Fallback CSS
           break;
       }
     
