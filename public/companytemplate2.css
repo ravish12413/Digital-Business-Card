@@ -2,16 +2,113 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-#slideshow1 {
-    display: none;  
-}
+/* Slideshow Container */
+.slideshow-container {
+    min-height: 230px;
+    max-width: 453px;
+    background-color: white;
+    color: black;
+    margin: 10px auto;  /* Center the slideshow horizontally */
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 25px;
+    height: fit-content;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 18px;
+    position: relative;
+    width: 100%; /* Ensure the container takes up 100% of available space */
+    max-width: 453px; /* Limit maximum width */
+  }
+  
+  /* Hide all slides initially */
+  .slide {
+    display: none;
+  }
+  
+  /* Ensure image stretches to fill the container */
+  .slide img {
+    width: 100%;   /* Make images stretch to fill the container */
+    height: auto;  /* Maintain the aspect ratio */
+    max-width: 100%; /* Prevent the image from growing beyond container width */
+  }
+  
+  /* Navigation buttons */
+  .prev, .next {
+    position: absolute;
+    top: 50%;
+    padding: 16px;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark background for the buttons */
+    color: white;
+    font-size: 24px;
+    border: none;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1;
+    transition: 0.3s;
+    margin: auto;
+    transform: translateY(-50%);  /* Center buttons vertically */
+  }
+  
+  /* Position the "Previous" button on the left */
+  .prev {
+    left: 10px;
+  }
+  
+  /* Position the "Next" button on the right */
+  .next {
+    right: 10px;
+  }
+  
+  /* Hover effect for navigation buttons */
+  .prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Darken the button on hover */
+  }
+  
+  /* Responsive adjustments for tablets (max-width: 768px) */
+  @media (max-width: 768px) {
+    .slideshow-container {
+      width: 90%;  /* Adjust width for tablets */
+      min-height: 200px;
+      margin-top: 15px;
+      padding: 10px;
+    }
+  
+    /* Adjust button size and positioning for tablets */
+    .prev, .next {
+      padding: 12px;
+      font-size: 20px;
+      margin-top: 20%;  /* Adjust positioning */
+    }
+  }
+  
+  /* Responsive adjustments for small screens (smartphones) */
+  @media (max-width: 480px) {
+    .slideshow-container {
+      width: 95%;  /* Use more space on smaller screens */
+      min-height: 180px;
+      padding: 8px;
+    }
+  
+    /* Adjust button size and positioning for smartphones */
+    .prev, .next {
+      padding: 10px;
+      font-size: 18px;
+      margin-top: 20%;  /* Adjust positioning */
+    }
+  
+    /* Ensure image fits well on small screens */
+    .slide img {
+      width: 100%;
+      height: auto;
+    }
+  }
 
 *{
     font-family: 'Roboto';
 }
 
 body {
-    margin: 5;
+    margin:0;
     height: max-content; /* Full viewport height */
     display: flex;
     justify-content: center;  /* Horizontal centering */
@@ -21,7 +118,7 @@ body {
 #main-look {
     background-color: #1c1a1a; /* Initial background color */
     padding: 20px;
-    border-radius: 20px;
+    border-radius: 0px;
     box-shadow: 0px 4px 10px rgba(253, 113, 113, 0.1);
     text-align: center;
     width: 100%;               /* Full width on small devices */
@@ -95,6 +192,23 @@ body {
     margin-bottom: 20px; /* Space below the banner */
     border-radius: 20px;
 }
+#banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease; /* Smooth zoom effect */
+}
+
+#banner img:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+#aboutme,#address{
+    text-align: center;
+    font-size: 13px;
+    padding-top: 10px;
+    line-height: 20px;
+    color: white;
+}
 
 .modal {
     display: none; /* Hidden by default */
@@ -134,7 +248,7 @@ body {
 .profile-section {
     position: relative;
     top: -70px; /* Adjust to bring profile section close to the wave */
-    padding: 20px;
+    padding: 0px;
     /* border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); */
     text-align: center;
@@ -186,6 +300,7 @@ body {
     flex-direction: column; /* Makes icon and text stack vertically */
     align-items: center; /* Centers icon and text */
     color: #ffffff;
+    margin-top: 45px;
 }
 
 .icon-row {
@@ -224,6 +339,7 @@ body {
     align-items: center; /* Center vertically */
     width: 100%;
     margin-top: -10px;
+    text-align: center; 
 }
 
 .line-left, .line-right {
@@ -501,4 +617,52 @@ body {
         height:fit-content;
         text-align: center;
     }
+}
+
+/* .vcf-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 16px;
+}
+.vcf-button:hover {
+    background-color: #45a049;
+} */
+.center-button1:hover {
+    background-color: #0056b3;  /* Darker blue on hover */
+}
+
+   /* Fixed Footer Styles */
+   .fixed-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(128, 0, 32, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+/* Button Styles */
+.center-button {
+    position: fixed;  /* Fixes the button to the screen */
+    bottom: 0px;     /* Distance from the bottom of the screen */
+    left: 50%;        /* Horizontally centers the button */
+    transform: translateX(-50%); /* Adjusts for exact centering */
+    padding: 10px 20px; /* Optional: adds padding to the button */
+    background-color:rgba(128, 0, 32, 0.9); /* Optional: customize the button color */
+    color: white;     /* Optional: customize text color */
+    border: none;     /* Optional: remove border */
+    border-radius: 5px; /* Optional: rounded corners */
+    font-size: 16px;   /* Optional: adjusts font size */
+    z-index: 1000;    /* Optional: ensures the button is on top of other content */
+    transition: background-color 0.3s ease;
+}
+.center-button:hover {
+    background-color: #0056b3;  /* Darker blue on hover */
 }
