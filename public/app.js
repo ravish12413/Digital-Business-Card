@@ -388,6 +388,7 @@ let uid, username;
   // Close the share options
   function closeShareOptions() {
       document.getElementById('shareOptions').style.display = 'none';
+      
   }
 
   // Copy the profile link to the clipboard
@@ -429,6 +430,45 @@ let uid, username;
       const profileLink = window.location.href;
       window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(profileLink)}`, '_blank');
   }
+  // Function to generate and download dynamic VCF file
+function generateDynamicVCF(username) {
+  let userRef = dbRef.child(`Collected Data/${username}`);
+  userRef.once('value', (snapshot) => {
+      if (snapshot.exists()) {
+          const data = snapshot.val();
+
+          // Construct the VCF content
+          const vcfContent = `BEGIN:VCARD
+VERSION:3.0
+N:${data.representativeName || ''}
+FN:${data.representativeName || ''}
+ORG:${data.companyName || ''}
+TITLE:${data.representativeDesignation || ''}
+TEL;TYPE=WORK,VOICE:${data.repPhoneNumber || ''}
+TEL;TYPE=CELL,WHATSAPP:${data.repWhatsappNumber || ''}
+EMAIL;TYPE=WORK:${data.email || ''}
+ADR;TYPE=WORK:;;${data.address || ''}
+URL:${data.website || ''}
+NOTE:${data.services || ''}
+END:VCARD`;
+
+          // Create a Blob object for the VCF content
+          const blob = new Blob([vcfContent], { type: 'text/vcard' });
+
+          // Trigger download
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = `${username}_contact.vcf`;
+
+          // Programmatically click the link and clean up
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      } else {
+          alert('Unable to generate VCF. User data not found.');
+      }
+  });
+}
     
 // you can remove this code if you have new syle 
     function fetchUserData() {
@@ -481,6 +521,17 @@ let uid, username;
   
                               
                           </div>
+                          <div class="section">
+                           <div class="line-container">
+                               <hr class="line-left">
+                                  <span class="line-text">About me</span>
+                                  <hr class="line-right">
+                                  </div>
+                                 <p id="aboutme">${data.about || 'About'}</p>
+                                  
+                            
+                               
+                      </div>
   
                            <div class="contact-icons" >
                               <div class="icon">
@@ -530,8 +581,7 @@ let uid, username;
                                       <i class="fa-solid fa-share-nodes"></i>
                                       <p> Share </p>
                                    </div>
-
-                                  <div id="shareOptions" class="share-options">
+                                   <div id="shareOptions" class="share-options" style="display:none;">
 
                                     <button class="share-option" onclick="copyLink()">
                                         <i class="fa-solid fa-link"></i> Copy Link
@@ -616,21 +666,25 @@ let uid, username;
                            
                           
                           <div>
-                             <div class="line-container">
-                                  <hr class="line-left">
+                          <div class="section">
+                              <div class="line-container">
+                               <hr class="line-left">
                                   <span class="line-text">Address & Directions</span>
                                   <hr class="line-right">
-                              </div>
-
-                              <div class="address">
+                                  </div>
                                   <p id="address">${data.address || 'Company Address'}</p>
-                                  <button onclick="window.open('${data.getDirections}', '_blank')">Get Directions</button>
-                              </div>
-                          </div>    
+                                   <button class="center-button1" onclick="window.open('${data.getDirections}', '_blank')">Get Directions</button>
+                                   
+
+                               
                       </div>
-                    </div>
+                      <div>
+                      
+                                  <button class="center-button" onclick="generateDynamicVCF('${username}')">Add Contact</button></div>
+
+                       </div>
                   </div>`;
-                
+              
   
               // Insert the created HTML into the container
               userDataContainer.innerHTML = htmlContent;

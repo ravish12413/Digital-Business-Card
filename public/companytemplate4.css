@@ -1,0 +1,370 @@
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Global Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Main Container Styles */
+#main-look {
+    max-width: 400px;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+}
+
+#main-look2 {
+    padding: 20px;
+}
+
+/* Logo Container Styles */
+#logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#companyLogo {
+    width: 80px;
+    height: 80px;
+    border-radius: 15px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+.wave-container {
+    display: none;
+}
+
+.logo-text h2 {
+    color: #2a4a95;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.logo-text p {
+    color: #777;
+    font-size: 0.9rem;
+}
+
+/* Banner Styles */
+ #banner {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border-radius: 20px;
+}
+
+#companyBanner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease; /* Smooth zoom effect */
+}
+
+#banner img:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Profile Section Styles */
+.profile-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #2a4a95;
+}
+
+.profile-image h2 {
+    color: #2a4a95;
+    margin-top: 10px;
+    font-size: 1.4rem;
+}
+
+.profile-image p {
+    color: #777;
+    font-size: 1rem;
+}
+
+/* Contact Icons Styles */
+.contact-icons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.contact-icons .icon {
+    text-align: center;
+}
+
+.contact-icons i {
+    font-size: 1.5rem;
+    color: #2a4a95;
+    margin-bottom: 5px;
+}
+
+.contact-icons p {
+    font-size: 0.8rem;
+    color: #777;
+}
+
+/* Section Styles */
+.section {
+    margin-bottom: 20px;
+}
+
+.line-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+#aboutme,#address{
+    text-align: center;
+    font-size: 12px !important;
+    padding-top: 10px;
+    line-height: 20px;
+    color: #777 !important;
+}
+
+.line-left, .line-right {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #ddd;
+}
+
+.line-text {
+    padding: 0 10px;
+    color: #2a4a95;
+    font-weight: 600;
+}
+
+/* Icon Row Styles */
+.icon-row, .icon-row2 {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.icon-row .icon, .icon-row2 .icon {
+    text-align: center;
+}
+
+  #services {
+    display: inline-block;
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+    /* font-weight: bold; */
+    white-space: pre-wrap; /* Maintain line breaks from the HTML */
+    word-wrap: break-word; /* Break words to fit content */
+  }
+  
+  /* CSS to force a line break when a comma is found */
+
+  #services::before {
+    content: attr(data-services);
+  }
+  
+
+.icon-row i, .icon-row2 i {
+    font-size: 1.5rem;
+    color: #2a4a95;
+    margin-bottom: 5px;
+}
+
+/* Share Options */
+#shareOptions {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    z-index: 1000;
+}
+
+.share-option {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    background-color: #2a4a95;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.share-option i {
+    margin-right: 10px;
+}
+
+.close-btn {
+    background-color: #e74c3c;
+}
+
+/* Slideshow Styles */
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.slide {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+/* Address Section */
+.address {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.center-button {
+    display: inline-block;
+    background-color: #2a4a95;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.center-button:hover {
+    background-color: #1a3a75;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+    #main-look {
+        max-width: 100%;
+        border-radius: 0;
+    }
+
+    .contact-icons {
+        flex-wrap: wrap;
+    }
+
+    .contact-icons .icon {
+        width: 25%;
+        margin-bottom: 10px;
+    }
+}
+   /* Fixed Footer Styles */
+   .fixed-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(128, 0, 32, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+/* Button Styles */
+.center-button {
+    position: fixed;  /* Fixes the button to the screen */
+    bottom: 0px;     /* Distance from the bottom of the screen */
+    left: 50%;        /* Horizontally centers the button */
+    transform: translateX(-50%); /* Adjusts for exact centering */
+    padding: 10px 20px; /* Optional: adds padding to the button */
+    background-color:rgba(128, 0, 32, 0.9); /* Optional: customize the button color */
+    color: white;     /* Optional: customize text color */
+    border: none;     /* Optional: remove border */
+    border-radius: 5px; /* Optional: rounded corners */
+    font-size: 16px;   /* Optional: adjusts font size */
+    z-index: 1000;    /* Optional: ensures the button is on top of other content */
+    transition: background-color 0.3s ease;
+}
+.center-button:hover {
+    background-color: #0056b3;  /* Darker blue on hover */
+}
+#aboutme,#address{
+    text-align: center;
+    font-size: 17px;
+    padding-top: 10px;
+    line-height: 20px;
+    color: #2a4a95;
+}
