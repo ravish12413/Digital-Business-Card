@@ -11,6 +11,51 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+let deferredPrompt;
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault(); // Prevent automatic prompt
+  deferredPrompt = e; // Save the event for later use
+  console.log("beforeinstallprompt event fired");
+});
+
+
+function showInstallPrompt() {
+  if (!deferredPrompt) {
+    console.warn("Install prompt is not available.");
+    return;
+  }
+
+  const installButton = document.createElement("button");
+  installButton.textContent = "Install Digital Business Card PWA";
+  installButton.style.position = "fixed";
+  installButton.style.bottom = "20px";
+  installButton.style.right = "20px";
+  installButton.style.padding = "10px 20px";
+  installButton.style.backgroundColor = "#2a4a95";
+  installButton.style.color = "#fff";
+  installButton.style.border = "none";
+  installButton.style.zIndex = '9999';
+  installButton.style.borderRadius = "5px";
+  installButton.style.cursor = "pointer";
+
+  installButton.onclick = () => {
+    deferredPrompt.prompt(); // Show the install prompt
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === "accepted") {
+        console.log("User accepted the PWA install");
+      } else {
+        console.log("User dismissed the PWA install");
+      }
+      deferredPrompt = null; // Reset the deferred prompt
+      installButton.remove(); // Hide the install button
+    });
+  };
+
+  document.body.appendChild(installButton); // Add the button to the DOM
+}
+
+
 //Some Variable Declarations
 const auth = firebase.auth();
 const user = firebase.auth().currentUser;
@@ -726,17 +771,6 @@ END:VCARD`;
                 modalText.textContent = `${data.legalInfo || 'Legal Information'}`;
               }
 
-              // phonenumber.onclick = function(){
-              //   modal.style.display ="flex";
-              //   modalText.textContent =`+91 ${data.repPhoneNumber || 'Not Provided'}`;
-              // }
-
-
-              // emailicon.onclick = function(){
-              //   modal.style.display ="flex";
-              //   modalText.textContent =` ${data.email || 'Not Provided'}`;
-              // }
-
     
                // Close the modal when clicking anywhere outside the modal content
                 window.onclick = function(event) {
@@ -809,3 +843,9 @@ function initSlideshow(slideshowId) {
       });
   }
 };
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/sw.js").then(() => {
+    console.log("Service Worker Registered");
+  });
+}
