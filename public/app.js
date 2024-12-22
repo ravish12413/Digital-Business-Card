@@ -1,14 +1,13 @@
 // Firebase configuration object (use your configuration details here)
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDe7R6O8V40GxZQH0U1Miu3EsfzQWC9vTQ",
-  authDomain: "mars-meta-tech.firebaseapp.com",
-  databaseURL: "https://mars-meta-tech-default-rtdb.firebaseio.com",
-  projectId: "mars-meta-tech",
-  storageBucket: "mars-meta-tech.firebasestorage.app",
-  messagingSenderId: "356961874650",
-  appId: "1:356961874650:web:789f3b3b1773560bb82be3",
-  measurementId: "G-RS8X820GLW"
+  apiKey: "AIzaSyBcNxs1qgOUV9QUXyEHNs_gPyZQHGpZ1B8",
+  authDomain: "dbs3-6a018.firebaseapp.com",
+  databaseURL: "https://dbs3-6a018-default-rtdb.firebaseio.com",
+  projectId: "dbs3-6a018",
+  storageBucket: "dbs3-6a018.firebasestorage.app",
+  messagingSenderId: "476698542874",
+  appId: "1:476698542874:web:41c0c69274d5d95a9522a3"
 };
 
 firebase.initializeApp(firebaseConfig);
