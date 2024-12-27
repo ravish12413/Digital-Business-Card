@@ -1,5 +1,4 @@
 // Firebase configuration object (use your configuration details here)
-
 const firebaseConfig = {
   apiKey: "AIzaSyBcNxs1qgOUV9QUXyEHNs_gPyZQHGpZ1B8",
   authDomain: "dbs3-6a018.firebaseapp.com",
@@ -10,8 +9,11 @@ const firebaseConfig = {
   appId: "1:476698542874:web:41c0c69274d5d95a9522a3"
 };
 
+
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+// PWA Install Prompt Below
 let deferredPrompt;
 
 window.addEventListener("beforeinstallprompt", (e) => {
@@ -19,7 +21,6 @@ window.addEventListener("beforeinstallprompt", (e) => {
   deferredPrompt = e; // Save the event for later use
   console.log("beforeinstallprompt event fired");
 });
-
 
 function showInstallPrompt() {
   if (!deferredPrompt) {
@@ -63,437 +64,444 @@ const user = firebase.auth().currentUser;
 let dbRef = firebase.database().ref();
 let uid, username;
 
+// Function for Signing In the user. This fucntion is called when the user clicks on the Sign In button on Login.Html Page
+function signIn() {
+  // Check if elements exist
+  const emailElement = document.getElementById('email');
+  const passwordElement = document.getElementById('password');
+  if (!emailElement || !passwordElement) {
+    console.error('Email or Password element not found');
+    return;
+  }
+  const email = emailElement.value;
+  const password = passwordElement.value;
+  // Debugging: log values to ensure they're being captured
+  console.log('Email:', email);
+  console.log('Password:', password);
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      // Signed in
+      var user = userCredential.user;
+      // ...
+      console.log("signin function called");
+      window.location.href = 'card-dashboard.html';
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+    });
 
-    function signIn() {
-      // Check if elements exist
-      const emailElement = document.getElementById('email');
-      const passwordElement = document.getElementById('password');
-      if (!emailElement || !passwordElement) {
-        console.error('Email or Password element not found');
-        return;
-      }
-      const email = emailElement.value;
-      const password = passwordElement.value;
-      // Debugging: log values to ensure they're being captured
-      console.log('Email:', email);
-      console.log('Password:', password);
-      firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          // Signed in
-          var user = userCredential.user;
-          // ...
-          console.log("signin function called");
-          window.location.href = 'card-dashboard.html'; 
+}
+
+
+// This function is called when the user clicks on the Sign Up button on the Login.Html Page
+function signUp() {
+  // Get email and password values from the form
+  const username = document.getElementById('username').value;
+  const signupemail = document.getElementById('signupemail').value;
+  const newpassword = document.getElementById('newpassword').value;
+  // Save the Binding Data
+  function saveMessageBinding(uid, username, signupemail) {
+    let bindingRef = firebase.database().ref('Binding');
+    let userRef = bindingRef.child(uid); // Use username as the key
+    userRef.set({
+      username: username,
+      signupemail: signupemail,
+    });
+  }
+  // Create a Key in the Collected Data
+  function saveMessageUsername(username) {
+    let firstsaveRef = firebase.database().ref('Collected Data');
+    let userRef2 = firstsaveRef.child(username); // Create a new key with  username
+    userRef2.set({
+      signupemail: signupemail,
+    });
+  }
+  // Create a new user with email and password
+  firebase.auth().createUserWithEmailAndPassword(signupemail, newpassword)
+    .then((userCredential) => {
+      // User created successfully
+      const user = userCredential.user;
+      const uid = userCredential.uid;
+      saveMessageBinding(uid, username, signupemail);
+      saveMessageUsername(username);
+      // Send email verification
+      firebase.auth().currentUser.sendEmailVerification()
+        .then(() => {
+          alert('Verification email sent. Please check your inbox and verify your email.');
+          // Redirect to the verification page
+          window.location.href = 'email-verification.html'; // replace with your verification page URL
         })
         .catch((error) => {
-          var errorCode = error.code;
-          var errorMessage = error.message;
+          console.error('Error sending verification email:', error.message);
+          alert('Error sending verification email: ' + error.message);
         });
+    })
+    .catch((error) => {
+      // Handle signup errors
+      console.error('Error during sign-up:', error.message);
+      alert('Error: ' + error.message);
+    });
 
+
+}
+
+
+// This is the function is called when the user clicks on the Sign out button on the Card Dasboard.html Page
+function signOut() {
+  auth.signOut().then(() => {
+    window.location.href = 'login.html'; // Redirect to login page after sign-out
+  }).catch(error => {
+    console.error('Sign out error:', error);
+  });
+}
+
+//Precheck function which checks if user is having all the neccessary conditions to access Card Dashboard page as well fetching data from db based on username and then populating them on form
+function preChecks() {
+  //Check if email ID is verified. If not, then send to email Verification page
+  firebase.auth().onAuthStateChanged(user => {
+
+    if (!user) {
+      window.location.href = 'index.html'; // Redirect to login page if not authenticated
     }
 
+    else if (user) {
+      const userEmail = user.email;
+      console.log("User's email:", userEmail);
 
-
-    function signUp() {
-      // Get email and password values from the form
-      const username = document.getElementById('username').value;
-      const signupemail = document.getElementById('signupemail').value;
-      const newpassword = document.getElementById('newpassword').value;
-      // Save the Binding Data
-      function saveMessageBinding(uid,username, signupemail) {
-        let bindingRef = firebase.database().ref('Binding');
-        let userRef = bindingRef.child(uid); // Use username as the key
-          userRef.set({
-           username: username,
-           signupemail: signupemail,
-          });
-      }  
-      // Create a Key in the Collected Data
-      function saveMessageUsername(username) {
-        let firstsaveRef = firebase.database().ref('Collected Data');
-        let userRef2 = firstsaveRef.child(username); // Create a new key with  username
-           userRef2.set({
-           signupemail: signupemail,
-        });
+      if (user.emailVerified) {
+        console.log("Email is verified");
+      } else {
+        console.log("Email is not verified");
+        window.location.href = 'email-verification.html';
       }
-      // Create a new user with email and password
-      firebase.auth().createUserWithEmailAndPassword(signupemail, newpassword)
-        .then((userCredential) => {
-          // User created successfully
-          const user = userCredential.user;
-          const uid = userCredential.uid;
-          saveMessageBinding(uid,username,signupemail);
-          saveMessageUsername(username);
-          // Send email verification
-          firebase.auth().currentUser.sendEmailVerification()
-            .then(() => {
-              alert('Verification email sent. Please check your inbox and verify your email.');
-              // Redirect to the verification page
-              window.location.href = 'email-verification.html'; // replace with your verification page URL
-            })
-            .catch((error) => {
-              console.error('Error sending verification email:', error.message);
-              alert('Error sending verification email: ' + error.message);
-            });
-        })
-        .catch((error) => {
-          // Handle signup errors
-          console.error('Error during sign-up:', error.message);
-          alert('Error: ' + error.message);
-        });
+      uid = user.uid;
+      console.log("User's UID:", uid);
 
-
-    }
-
-
-    // Sign out function
-    function signOut() {
-       auth.signOut().then(() => {
-         window.location.href = 'login.html'; // Redirect to login page after sign-out
-       }).catch(error => {
-         console.error('Sign out error:', error);
-      });
-    }
-
-    //Precheck function which checks if user is having all the neccessary conditions to access Card Dashboard page as well fetching data from db based on username and then populating them on form
-    function preChecks(){
-        //Check if email ID is verified. If not, then send to email Verification page
-        firebase.auth().onAuthStateChanged(user => {
-        
-        if (!user) {
-            window.location.href = 'index.html'; // Redirect to login page if not authenticated
-        }
-
-        else if (user) {
-          const userEmail = user.email;
-          console.log("User's email:", userEmail);
-  
-          if (user.emailVerified) {
-            console.log("Email is verified");
-          } else {
-            console.log("Email is not verified");
-            window.location.href = 'email-verification.html';
-          }
-          uid = user.uid;
-          console.log("User's UID:", uid);
-  
-          dbRef.child(`Binding/${uid}/username`).once('value')
-            .then(snapshot => {
-              if (snapshot.exists()) {
-                username = snapshot.val(); // Get the username
-  
-                // Now use the username to fetch data from Collected Data
-                return dbRef.child(`Collected Data/${username}`).once('value');
-                console.log(username);
-              } else {
-                console.error("No username found for this UID in Binding.");
-                return null;
-              }
-            })
-            .then(userDataSnapshot => {
-              if (userDataSnapshot && userDataSnapshot.exists()) {
-                const userData = userDataSnapshot.val();
-                populateFormFields(userData); // Function to populate fields with fetched data
-              } else if (userDataSnapshot === null) {
-                // Handle case when username is not found under the UID
-                console.log("No data found for this user.");
-              }
-            })
-            .catch(error => {
-              console.error("Error fetching data:", error);
-            });
-        }
-      });
-  
-    }
-    
-    //Function to populate data from db into the Form
-    function populateFormFields(data){
-        console.log("Fetched data:", data);
-            template.value = data.template || "companytemplate1";
-            companyLogo.value = data.companyLogo || "Not Provided";
-            companyName.value = data.companyName || "Not Provided";
-            companyTagline.value = data.companyTagline || "Not Provided";
-            qrcodelink.value = data.qrcodelink || "Not Provided";
-            companyBanner.value = data.companyBanner || "Not Provided";
-            representativeName.value = data.representativeName || "Not Provided";
-            representativePicture.value = data.representativePicture || "Not Provided";
-            representativeDesignation.value = data.representativeDesignation || "Not Provided";
-            repPhoneNumber.value = data.repPhoneNumber || "Not Provided";
-            repWhatsappNumber.value = data.repWhatsappNumber || "Not Provided";
-            email.value = data.email || "Not Provided";
-            about.value = data.about || "Not Provided";
-            legalInfo.value = data.legalInfo || "Not Provided";
-            catalog.value = data.catalog || "Not Provided";
-            services.value = data.services || "Not Provided";
-            address.value = data.address || "Not Provided";
-            gallery1.value = data.gallery1 || "Not Provided";
-            gallery2.value = data.gallery2 || "Not Provided";
-            gallery3.value = data.gallery3 || "Not Provided";
-            website.value = data.website || "Not Provided";
-            facebook.value = data.facebook || "Not Provided";
-            instagram.value = data.instagram || "Not Provided";
-            youtube.value = data.youtube || "Not Provided";
-            twitter.value = data.twitter || "Not Provided";
-            linkedin.value = data.linkedin || "Not Provided";
-            getDirections.value = data.getDirections || "Not Provided";
-            toggleViewMode(true); // Start in view mode
-
-      }
-
-    //Function that is called on the click of save button. Accessing DOM elements value and passing it into saveMessage function
-    function submitForm() {
-        // DOM elements
-        let template = document.getElementById('template').value;
-        let companyLogo = document.getElementById('companyLogo').value;
-        let companyName = document.getElementById('companyName').value;
-        let companyTagline = document.getElementById('companyTagline').value;
-        let qrcodelink = document.getElementById('qrcodelink').value;
-        let companyBanner = document.getElementById('companyBanner').value;
-        let representativePicture = document.getElementById('representativePicture').value;
-        let representativeName = document.getElementById('representativeName').value;
-        let representativeDesignation = document.getElementById('representativeDesignation').value;
-        let repPhoneNumber = document.getElementById('repPhoneNumber').value;
-        let repWhatsappNumber = document.getElementById('repWhatsappNumber').value;
-        let email = document.getElementById('email').value;
-        let about = document.getElementById('about').value;
-        let legalInfo = document.getElementById('legalInfo').value;
-        let catalog = document.getElementById('catalog').value;
-        let services = document.getElementById('services').value;
-        let address = document.getElementById('address').value;
-        let gallery1 = document.getElementById('gallery1').value;
-        let gallery2 = document.getElementById('gallery2').value;
-        let gallery3 = document.getElementById('gallery3').value;
-        let website = document.getElementById('website').value;
-        let facebook = document.getElementById('facebook').value;
-        let instagram = document.getElementById('instagram').value;
-        let youtube = document.getElementById('youtube').value;
-        let twitter = document.getElementById('twitter').value;
-        let linkedin = document.getElementById('linkedin').value;
-        let getDirections = document.getElementById('getDirections').value;
-        let editBtn = document.getElementById('editBtn').value;
-        let saveBtn = document.getElementById('saveBtn').value;
-        saveMessage(template,companyLogo, companyName,companyTagline,qrcodelink, companyBanner, representativeName, representativePicture, representativeDesignation, repPhoneNumber, repWhatsappNumber, email, about, legalInfo, catalog, services, address,gallery1, gallery2, gallery3, website, facebook, instagram, youtube, twitter, linkedin,getDirections);
-      }
-      
-
-      // Function to update Data on Card Dashboard Page &if saved successfully, toggle the save button back to edit
-      function saveMessage(template,companyLogo, companyName,companyTagline, qrcodelink, companyBanner, representativeName, representativePicture, representativeDesignation, repPhoneNumber, repWhatsappNumber, email, about, legalInfo, catalog, services, address, gallery1,gallery2, gallery3,website, facebook, instagram, youtube, twitter, linkedin, getDirections) {
-        let userRef = dbRef.child(`Collected Data/${username}`);
-        userRef.set({
-        template: template,
-        companyLogo: companyLogo,
-        companyName: companyName,
-        companyTagline: companyTagline,
-        qrcodelink: qrcodelink,
-        companyBanner: companyBanner,
-        representativeName: representativeName,
-        representativePicture: representativePicture,
-        representativeDesignation: representativeDesignation,
-        repPhoneNumber: repPhoneNumber,
-        repWhatsappNumber: repWhatsappNumber,
-        email: email,
-        about: about,
-        legalInfo: legalInfo,
-        catalog: catalog,
-        services: services,
-        gallery1 : gallery1,
-        gallery2: gallery2,
-        gallery3: gallery3,
-        address: address,
-        website: website,
-        facebook: facebook,
-        instagram: instagram,
-        youtube: youtube,
-        twitter: twitter,
-        linkedin: linkedin,
-        getDirections: getDirections,
-       });
-
-        dbRef.set(userRef).then(() => {
-         alert("Data saved successfully!");
-         toggleViewMode(true);
-       }).catch((error) => {
-         console.error("Error saving data:", error);
-       });
-};
-
-     
-    
-    //Function to toggle between Edit mode and View mode
-    function toggleViewMode(isViewMode) {
-        template.disabled = isViewMode;
-        companyLogo.readOnly = isViewMode;
-        companyName.readOnly = isViewMode;
-        companyTagline.readOnly = isViewMode;
-        qrcodelink.readOnly = isViewMode;
-        companyBanner.readOnly = isViewMode;
-        representativeName.readOnly = isViewMode;
-        representativePicture.readOnly = isViewMode;
-        representativeDesignation.readOnly = isViewMode;
-        repPhoneNumber.readOnly = isViewMode;
-        repWhatsappNumber.readOnly = isViewMode;
-        email.readOnly = isViewMode;
-        about.readOnly = isViewMode;
-        legalInfo.readOnly = isViewMode;
-        catalog.readOnly = isViewMode;
-        services.readOnly = isViewMode;
-        address.readOnly = isViewMode;
-        gallery1.readOnly = isViewMode;
-        gallery2.readOnly = isViewMode;
-        gallery3.readOnly = isViewMode;
-        website.readOnly = isViewMode;
-        facebook.readOnly = isViewMode;
-        instagram.readOnly = isViewMode;
-        youtube.readOnly = isViewMode;
-        twitter.readOnly = isViewMode;
-        linkedin.readOnly = isViewMode;
-        getDirections.readOnly = isViewMode;
-        // Set other fields to readonly in view mode
-        editBtn.style.display = isViewMode ? "inline" : "none";
-        saveBtn.style.display = isViewMode ? "none" : "inline";
-      }
-
-      
-
-
-    // Helper function to sanitize usernames
-    function sanitizeUsername(username) {
-        return username.replace(/[.#$[\]]/g, '_');
-    }
-    
-    function extractTemplate(username_param) {
-      username= username_param;
-      const userRef = dbRef.child(`Collected Data/${username}`);
-    
-      userRef.once('value')
+      dbRef.child(`Binding/${uid}/username`).once('value')
         .then(snapshot => {
           if (snapshot.exists()) {
-            const data = snapshot.val();
-            const templateValue = data.template; // Fetch the template field
-            console.log("Fetched template:", templateValue);
-    
-            // Call the injectCSS function with the fetched template value
-            injectCSS(templateValue);
+            username = snapshot.val(); // Get the username
+
+            // Now use the username to fetch data from Collected Data
+            return dbRef.child(`Collected Data/${username}`).once('value');
+            console.log(username);
           } else {
-            console.error("No data available for the specified username.");
+            console.error("No username found for this UID in Binding.");
+            return null;
+          }
+        })
+        .then(userDataSnapshot => {
+          if (userDataSnapshot && userDataSnapshot.exists()) {
+            const userData = userDataSnapshot.val();
+            populateFormFields(userData); // Function to populate fields with fetched data
+          } else if (userDataSnapshot === null) {
+            // Handle case when username is not found under the UID
+            console.log("No data found for this user.");
           }
         })
         .catch(error => {
-          console.error("Error fetching template data:", error);
+          console.error("Error fetching data:", error);
         });
     }
-    
-    function injectCSS(data) {
+  });
 
-      // Remove any previously injected stylesheet links if needed
-      const existingStyles = document.querySelectorAll('link[rel="stylesheet"][data-dynamic="true"]');
-      existingStyles.forEach((style) => style.remove());
-    
-      // Determine the CSS file based on data.template using a switch statement
-      let cssFile;
-      switch (data) {
-        case 'companytemplate1':
-          cssFile = './companytemplate1.css';
-          break;
-        case 'professionaltemplate':
-          cssFile = './professionaltemplate.css';
-          break;
-        case 'companytemplate2':
-          cssFile = './companytemplate2.css';
-          break;
-        case 'companytemplate3':
-          cssFile = './companytemplate3.css';
-          break;
-        case 'companytemplate4':
-          cssFile = './companytemplate4.css';
-          break;
-        case 'companytemplate5':
-          cssFile = './companytemplate5.css';
-          break;
-        default:
-          cssFile = './companytemplate1.css'; // Fallback CSS
-          break;
-      }
-    
-      // Inject the determined CSS file
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = cssFile;
-      link.setAttribute('data-dynamic', 'true'); // Mark this as dynamically added for easy removal
-      document.head.appendChild(link);
-    
-      // Inject Font Awesome CDN
-      const faLink = document.createElement('link');
-      faLink.rel = 'stylesheet';
-      faLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
-      faLink.setAttribute('data-dynamic', 'true'); // Mark as dynamic
-      document.head.appendChild(faLink);
-    }
-    
-    function toggleShareOptions() {
-      const shareOptions = document.getElementById('shareOptions');
-      if (shareOptions.style.display === 'block') {
-          shareOptions.style.display = 'none';
+}
+
+//Function to populate data from db into the Form fields. This function is called in preChecks function
+function populateFormFields(data) {
+  console.log("Fetched data:", data);
+  template.value = data.template || "companytemplate1";
+  companyLogo.value = data.companyLogo || "Not Provided";
+  companyName.value = data.companyName || "Not Provided";
+  companyTagline.value = data.companyTagline || "Not Provided";
+  qrcodelink.value = data.qrcodelink || "Not Provided";
+  companyBanner.value = data.companyBanner || "Not Provided";
+  representativeName.value = data.representativeName || "Not Provided";
+  representativePicture.value = data.representativePicture || "Not Provided";
+  representativeDesignation.value = data.representativeDesignation || "Not Provided";
+  repPhoneNumber.value = data.repPhoneNumber || "Not Provided";
+  repWhatsappNumber.value = data.repWhatsappNumber || "Not Provided";
+  email.value = data.email || "Not Provided";
+  about.value = data.about || "Not Provided";
+  legalInfo.value = data.legalInfo || "Not Provided";
+  catalog.value = data.catalog || "Not Provided";
+  services.value = data.services || "Not Provided";
+  address.value = data.address || "Not Provided";
+  gallery1.value = data.gallery1 || "Not Provided";
+  gallery2.value = data.gallery2 || "Not Provided";
+  gallery3.value = data.gallery3 || "Not Provided";
+  website.value = data.website || "Not Provided";
+  facebook.value = data.facebook || "Not Provided";
+  instagram.value = data.instagram || "Not Provided";
+  youtube.value = data.youtube || "Not Provided";
+  twitter.value = data.twitter || "Not Provided";
+  linkedin.value = data.linkedin || "Not Provided";
+  getDirections.value = data.getDirections || "Not Provided";
+  toggleViewMode(true); // Start in view mode
+
+}
+
+//Function that is called on the click of save button. Accessing DOM elements value and passing it into saveMessage function
+function submitForm() {
+  // DOM elements
+  let template = document.getElementById('template').value;
+  let companyLogo = document.getElementById('companyLogo').value;
+  let companyName = document.getElementById('companyName').value;
+  let companyTagline = document.getElementById('companyTagline').value;
+  let qrcodelink = document.getElementById('qrcodelink').value;
+  let companyBanner = document.getElementById('companyBanner').value;
+  let representativePicture = document.getElementById('representativePicture').value;
+  let representativeName = document.getElementById('representativeName').value;
+  let representativeDesignation = document.getElementById('representativeDesignation').value;
+  let repPhoneNumber = document.getElementById('repPhoneNumber').value;
+  let repWhatsappNumber = document.getElementById('repWhatsappNumber').value;
+  let email = document.getElementById('email').value;
+  let about = document.getElementById('about').value;
+  let legalInfo = document.getElementById('legalInfo').value;
+  let catalog = document.getElementById('catalog').value;
+  let services = document.getElementById('services').value;
+  let address = document.getElementById('address').value;
+  let gallery1 = document.getElementById('gallery1').value;
+  let gallery2 = document.getElementById('gallery2').value;
+  let gallery3 = document.getElementById('gallery3').value;
+  let website = document.getElementById('website').value;
+  let facebook = document.getElementById('facebook').value;
+  let instagram = document.getElementById('instagram').value;
+  let youtube = document.getElementById('youtube').value;
+  let twitter = document.getElementById('twitter').value;
+  let linkedin = document.getElementById('linkedin').value;
+  let getDirections = document.getElementById('getDirections').value;
+  let editBtn = document.getElementById('editBtn').value;
+  let saveBtn = document.getElementById('saveBtn').value;
+  saveMessage(template, companyLogo, companyName, companyTagline, qrcodelink, companyBanner, representativeName, representativePicture, representativeDesignation, repPhoneNumber, repWhatsappNumber, email, about, legalInfo, catalog, services, address, gallery1, gallery2, gallery3, website, facebook, instagram, youtube, twitter, linkedin, getDirections);
+}
+
+
+// Function to update Data on Card Dashboard Page & if saved successfully, toggle the save button back to edit
+function saveMessage(template, companyLogo, companyName, companyTagline, qrcodelink, companyBanner, representativeName, representativePicture, representativeDesignation, repPhoneNumber, repWhatsappNumber, email, about, legalInfo, catalog, services, address, gallery1, gallery2, gallery3, website, facebook, instagram, youtube, twitter, linkedin, getDirections) {
+  let userRef = dbRef.child(`Collected Data/${username}`);
+  userRef.set({
+    template: template,
+    companyLogo: companyLogo,
+    companyName: companyName,
+    companyTagline: companyTagline,
+    qrcodelink: qrcodelink,
+    companyBanner: companyBanner,
+    representativeName: representativeName,
+    representativePicture: representativePicture,
+    representativeDesignation: representativeDesignation,
+    repPhoneNumber: repPhoneNumber,
+    repWhatsappNumber: repWhatsappNumber,
+    email: email,
+    about: about,
+    legalInfo: legalInfo,
+    catalog: catalog,
+    services: services,
+    gallery1: gallery1,
+    gallery2: gallery2,
+    gallery3: gallery3,
+    address: address,
+    website: website,
+    facebook: facebook,
+    instagram: instagram,
+    youtube: youtube,
+    twitter: twitter,
+    linkedin: linkedin,
+    getDirections: getDirections,
+  });
+
+  dbRef.set(userRef).then(() => {
+    alert("Data saved successfully!");
+    toggleViewMode(true);
+  }).catch((error) => {
+    console.error("Error saving data:", error);
+  });
+};
+
+
+
+//Function to toggle between Edit mode and View mode. This function is called in the SaveMessage function.
+function toggleViewMode(isViewMode) {
+  template.disabled = isViewMode;
+  companyLogo.readOnly = isViewMode;
+  companyName.readOnly = isViewMode;
+  companyTagline.readOnly = isViewMode;
+  qrcodelink.readOnly = isViewMode;
+  companyBanner.readOnly = isViewMode;
+  representativeName.readOnly = isViewMode;
+  representativePicture.readOnly = isViewMode;
+  representativeDesignation.readOnly = isViewMode;
+  repPhoneNumber.readOnly = isViewMode;
+  repWhatsappNumber.readOnly = isViewMode;
+  email.readOnly = isViewMode;
+  about.readOnly = isViewMode;
+  legalInfo.readOnly = isViewMode;
+  catalog.readOnly = isViewMode;
+  services.readOnly = isViewMode;
+  address.readOnly = isViewMode;
+  gallery1.readOnly = isViewMode;
+  gallery2.readOnly = isViewMode;
+  gallery3.readOnly = isViewMode;
+  website.readOnly = isViewMode;
+  facebook.readOnly = isViewMode;
+  instagram.readOnly = isViewMode;
+  youtube.readOnly = isViewMode;
+  twitter.readOnly = isViewMode;
+  linkedin.readOnly = isViewMode;
+  getDirections.readOnly = isViewMode;
+  // Set other fields to readonly in view mode
+  editBtn.style.display = isViewMode ? "inline" : "none";
+  saveBtn.style.display = isViewMode ? "none" : "inline";
+}
+
+
+
+
+// Helper function to sanitize usernames. Used to prevent special characters in usernames. The funtion is called in the fetchUserData function
+function sanitizeUsername(username) {
+  return username.replace(/[.#$[\]]/g, '_');
+}
+
+
+// Extracting the template from the database based on the username and then calling the injectCSS function with the fetched template value. This function is called in the fetchUserData function 
+function extractTemplate(username_param) {
+  username = username_param;
+  const userRef = dbRef.child(`Collected Data/${username}`);
+
+  userRef.once('value')
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        const templateValue = data.template; // Fetch the template field
+        console.log("Fetched template:", templateValue);
+
+        // Call the injectCSS function with the fetched template value
+        injectCSS(templateValue);
       } else {
-          shareOptions.style.display = 'block';
+        console.error("No data available for the specified username.");
       }
+    })
+    .catch(error => {
+      console.error("Error fetching template data:", error);
+    });
+}
+
+// Injecting the CSS based on the template value fetched from the database. This function is called in the extractTemplate function
+function injectCSS(data) {
+
+  // Remove any previously injected stylesheet links if needed
+  const existingStyles = document.querySelectorAll('link[rel="stylesheet"][data-dynamic="true"]');
+  existingStyles.forEach((style) => style.remove());
+
+  // Determine the CSS file based on data.template using a switch statement
+  let cssFile;
+  switch (data) {
+    case 'companytemplate1':
+      cssFile = './companytemplate1.css';
+      break;
+    case 'professionaltemplate':
+      cssFile = './professionaltemplate.css';
+      break;
+    case 'companytemplate2':
+      cssFile = './companytemplate2.css';
+      break;
+    case 'companytemplate3':
+      cssFile = './companytemplate3.css';
+      break;
+    case 'companytemplate4':
+      cssFile = './companytemplate4.css';
+      break;
+    case 'companytemplate5':
+      cssFile = './companytemplate5.css';
+      break;
+    default:
+      cssFile = './companytemplate1.css'; // Fallback CSS
+      break;
   }
 
-  // Close the share options
-  function closeShareOptions() {
-      document.getElementById('shareOptions').style.display = 'none';
-      
-  }
+  // Inject the determined CSS file
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = cssFile;
+  link.setAttribute('data-dynamic', 'true'); // Mark this as dynamically added for easy removal
+  document.head.appendChild(link);
 
-  // Copy the profile link to the clipboard
-  function copyLink() {
-      const profileLink = window.location.href; // Use the current page URL
-      navigator.clipboard.writeText(profileLink).then(function() {
-          alert('Link copied to clipboard!');
-      }).catch(function(err) {
-          console.error('Error copying text: ', err);
-      });
-  }
+  // Inject Font Awesome CDN
+  const faLink = document.createElement('link');
+  faLink.rel = 'stylesheet';
+  faLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
+  faLink.setAttribute('data-dynamic', 'true'); // Mark as dynamic
+  document.head.appendChild(faLink);
+}
 
-  // Share on WhatsApp using mobile app link (works on mobile)
-  function shareWhatsApp() {
-      const profileLink = window.location.href;
-      // Try opening WhatsApp mobile app (works only on mobile devices)
-      if (navigator.userAgent.match(/iPhone|Android/i)) {
-          window.open(`whatsapp://send?text=${encodeURIComponent(profileLink)}`, '_blank');
-      } else {
-          // Fallback for desktop users: WhatsApp Web
-          window.open(`https://web.whatsapp.com/send?text=${encodeURIComponent(profileLink)}`, '_blank');
-      }
-  }
 
-  // Share on Instagram
-  function shareInstagram() {
-      const profileLink = window.location.href;
-      window.open(`https://www.instagram.com/sharer/sharer.php?u=${encodeURIComponent(profileLink)}`, '_blank');
+// Function to toggle the share options in the User Page. This function is used in FetchUser Data    
+function toggleShareOptions() {
+  const shareOptions = document.getElementById('shareOptions');
+  if (shareOptions.style.display === 'block') {
+    shareOptions.style.display = 'none';
+  } else {
+    shareOptions.style.display = 'block';
   }
+}
 
-  // Share via Email
-  function shareEmail() {
-      const profileLink = window.location.href;
-      window.open(`mailto:?subject=Check out this profile&body=${encodeURIComponent(profileLink)}`, '_blank');
-  }
+// Functions to close the share options in the User Page. This function is used in FetchUser Data
+function closeShareOptions() {
+  document.getElementById('shareOptions').style.display = 'none';
 
-  // Share on Facebook
-  function shareFacebook() {
-      const profileLink = window.location.href;
-      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(profileLink)}`, '_blank');
+}
+
+
+// Function to Copy the profile link to the clipboard. This function is used in FectchUserData
+function copyLink() {
+  const profileLink = window.location.href; // Use the current page URL
+  navigator.clipboard.writeText(profileLink).then(function () {
+    alert('Link copied to clipboard!');
+  }).catch(function (err) {
+    console.error('Error copying text: ', err);
+  });
+}
+
+// Share on WhatsApp using mobile app link (works on mobile). Used in FetchUser Data function for Users Card Page
+function shareWhatsApp() {
+  const profileLink = window.location.href;
+  // Try opening WhatsApp mobile app (works only on mobile devices)
+  if (navigator.userAgent.match(/iPhone|Android/i)) {
+    window.open(`whatsapp://send?text=${encodeURIComponent(profileLink)}`, '_blank');
+  } else {
+    // Fallback for desktop users: WhatsApp Web
+    window.open(`https://web.whatsapp.com/send?text=${encodeURIComponent(profileLink)}`, '_blank');
   }
-  // Function to generate and download dynamic VCF file
+}
+
+// Share on Instagram. Used in FetchUser Data function for Users Card Page.
+function shareInstagram() {
+  const profileLink = window.location.href;
+  window.open(`https://www.instagram.com/sharer/sharer.php?u=${encodeURIComponent(profileLink)}`, '_blank');
+}
+
+// Share via Email. Used in FetchUser Data function for Users Card Page
+function shareEmail() {
+  const profileLink = window.location.href;
+  window.open(`mailto:?subject=Check out this profile&body=${encodeURIComponent(profileLink)}`, '_blank');
+}
+
+// Share on Facebook. Used in FetchUser Data function for Users Card Page
+function shareFacebook() {
+  const profileLink = window.location.href;
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(profileLink)}`, '_blank');
+}
+
+// Function to generate and download dynamic VCF file. Used in FetchUser Data function for Users Card Page
 function generateDynamicVCF(username) {
   let userRef = dbRef.child(`Collected Data/${username}`);
   userRef.once('value', (snapshot) => {
-      if (snapshot.exists()) {
-          const data = snapshot.val();
+    if (snapshot.exists()) {
+      const data = snapshot.val();
 
-          // Construct the VCF content
-          const vcfContent = `BEGIN:VCARD
+      // Construct the VCF content
+      const vcfContent = `BEGIN:VCARD
 VERSION:3.0
 N:${data.representativeName || ''}
 FN:${data.representativeName || ''}
@@ -507,40 +515,40 @@ URL:${data.website || ''}
 NOTE:${data.services || ''}
 END:VCARD`;
 
-          // Create a Blob object for the VCF content
-          const blob = new Blob([vcfContent], { type: 'text/vcard' });
+      // Create a Blob object for the VCF content
+      const blob = new Blob([vcfContent], { type: 'text/vcard' });
 
-          // Trigger download
-          const link = document.createElement('a');
-          link.href = URL.createObjectURL(blob);
-          link.download = `${username}_contact.vcf`;
+      // Trigger download
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `${username}_contact.vcf`;
 
-          // Programmatically click the link and clean up
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-      } else {
-          alert('Unable to generate VCF. User data not found.');
-      }
+      // Programmatically click the link and clean up
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      alert('Unable to generate VCF. User data not found.');
+    }
   });
 }
-    
-// you can remove this code if you have new syle 
-    function fetchUserData() {
-      
-      const pathSegments = window.location.pathname.split('/');
-      let username = pathSegments[pathSegments.length - 1];
-      username = sanitizeUsername(username);
-      extractTemplate(username);
-      let userRef = dbRef.child(`Collected Data/${username}`);
-      userRef.once('value', (snapshot) => {
-          const userDataContainer = document.getElementById('userDataContainer');
-          const loadingMessage = document.getElementById('loading');
-  
-          if (snapshot.exists()) {
-              const data = snapshot.val();
-              // Dynamically create the HTML structure
-              const htmlContent = `
+
+// Function to fetch user data from the database and populate the HTML structure in User.html Page
+function fetchUserData() {
+
+  const pathSegments = window.location.pathname.split('/');
+  let username = pathSegments[pathSegments.length - 1];
+  username = sanitizeUsername(username);
+  extractTemplate(username);
+  let userRef = dbRef.child(`Collected Data/${username}`);
+  userRef.once('value', (snapshot) => {
+    const userDataContainer = document.getElementById('userDataContainer');
+    const loadingMessage = document.getElementById('loading');
+
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      // Dynamically create the HTML structure
+      const htmlContent = `
                   <head>    
                   <title>Digital Business Card ${username}</title>
                   <head>
@@ -739,87 +747,87 @@ END:VCARD`;
 
                        </div>
                   </div>`;
-              
-  
-              // Insert the created HTML into the container
-              userDataContainer.innerHTML = htmlContent;
-                
-              initSlideshow("slideshow1");
-
-                //modal box opening 
-                 var modal = document.getElementById("myModal");
-                 var modalText = document.getElementById("modalText");
-         
-                 // Get the iconss
-                 var icon3 = document.getElementById("legal-icon");
-                 
-         
-              
-                abouticon.onclick = function(){ 
-                  modal.style.display = "flex";
-               modalText.textContent = `${data.about || 'About the company'}`;
-              }
-
-              
-              qricon.onclick = function() {
-                modal.style.display = "flex";
-                modalText.innerHTML = `<img id="qrimg" src="${data.qrcodelink || 'QR Code'}">`;
-              }
 
 
-              icon3.onclick = function() {
-                modal.style.display = "flex";
-                modalText.textContent = `${data.legalInfo || 'Legal Information'}`;
-              }
+      // Insert the created HTML into the container
+      userDataContainer.innerHTML = htmlContent;
 
-    
-               // Close the modal when clicking anywhere outside the modal content
-                window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-              }  
-  
-              // Hide the loading message
-              if (loadingMessage) loadingMessage.style.display = "none";
-          } else {
-              loadingMessage.textContent = "User not found.";
-          }
-      });
-      
-  }
+      initSlideshow("slideshow1");
 
-    
+      //modal box opening 
+      var modal = document.getElementById("myModal");
+      var modalText = document.getElementById("modalText");
 
+      // Get the iconss
+      var icon3 = document.getElementById("legal-icon");
+
+
+
+      abouticon.onclick = function () {
+        modal.style.display = "flex";
+        modalText.textContent = `${data.about || 'About the company'}`;
+      }
+
+
+      qricon.onclick = function () {
+        modal.style.display = "flex";
+        modalText.innerHTML = `<img id="qrimg" src="${data.qrcodelink || 'QR Code'}">`;
+      }
+
+
+      icon3.onclick = function () {
+        modal.style.display = "flex";
+        modalText.textContent = `${data.legalInfo || 'Legal Information'}`;
+      }
+
+
+      // Close the modal when clicking anywhere outside the modal content
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+
+      // Hide the loading message
+      if (loadingMessage) loadingMessage.style.display = "none";
+    } else {
+      loadingMessage.textContent = "User not found.";
+    }
+  });
+
+}
+
+
+// Function to initialize the slideshow. This function is called in the fetchUserData function
 function initSlideshow(slideshowId) {
-  
+
   let slideIndex = 0;
   const slides = document.querySelectorAll(`#${slideshowId} .slide`);
 
   // Function to show the current slide
   function showSlide() {
-      // Hide all slides
-      slides.forEach(slide => {
-          slide.style.display = "none";
-      });
+    // Hide all slides
+    slides.forEach(slide => {
+      slide.style.display = "none";
+    });
 
-      // Show the current slide
-      slides[slideIndex].style.display = "block";
+    // Show the current slide
+    slides[slideIndex].style.display = "block";
   }
 
   // Function to change the slide when clicking the buttons
   function changeSlide(n) {
-      slideIndex += n;
-      console.log(`Current slide index: ${slideIndex}`);
+    slideIndex += n;
+    console.log(`Current slide index: ${slideIndex}`);
 
-      if (slideIndex >= slides.length) {
-          slideIndex = 0; // Loop back to the first slide
-      }
-      if (slideIndex < 0) {
-          slideIndex = slides.length - 1; // Loop to the last slide
-      }
+    if (slideIndex >= slides.length) {
+      slideIndex = 0; // Loop back to the first slide
+    }
+    if (slideIndex < 0) {
+      slideIndex = slides.length - 1; // Loop to the last slide
+    }
 
-      showSlide();
+    showSlide();
   }
 
   // Initialize the slideshow
@@ -827,7 +835,7 @@ function initSlideshow(slideshowId) {
 
   // Set interval for automatic slideshow every 3 seconds (3000ms)
   setInterval(() => {
-      changeSlide(1); // Automatically move to the next slide
+    changeSlide(1); // Automatically move to the next slide
   }, 3000);
 
   // Attach event listeners to the buttons (optional if you want manual controls)
@@ -835,16 +843,19 @@ function initSlideshow(slideshowId) {
   const nextButton = document.querySelector(`#${slideshowId} .next`);
 
   if (prevButton && nextButton) {
-      prevButton.addEventListener('click', function() {
-          changeSlide(-1);
-      });
+    prevButton.addEventListener('click', function () {
+      changeSlide(-1);
+    });
 
-      nextButton.addEventListener('click', function() {
-          changeSlide(1);
-      });
+    nextButton.addEventListener('click', function () {
+      changeSlide(1);
+    });
   }
 };
 
+
+
+// Function to Register Service Worker for PWA.
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/sw.js").then(() => {
     console.log("Service Worker Registered");

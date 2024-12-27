@@ -9,6 +9,8 @@
 </head>
 
 <body>
+  <!--This page is the User Specific page. Whenever a username is appended after a "/" in the URL, it fetches the data from the database and shows in this page-->
+
   <!-- Container for displaying the user data -->
   <div id="userDataContainer">
     <p id="loading">Loading user data...</p> <!-- Loading message -->
@@ -17,9 +19,9 @@
   <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
   <script src="app.js?v=0.1"></script>
 
-  <script>   
+  <script>  
+    //The Dynamic HTML content is defined in the fetchUserData() function in app.js file 
     fetchUserData();
-   
   </script>
 </body>
 
