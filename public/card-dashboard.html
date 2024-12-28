@@ -10,6 +10,7 @@
 </head>
 
 <body>
+  <!--This is the Dashboard page where the user enters all the details of the Card or Update them-->
   <h2 style="text-align: center;">DASHBOARD</h2>
   <p style="text-align: center;">Below are your details for Digital Business Card</p>
   <button onclick="signOut()" class="btn btn-primary" style="margin-left: 46%; margin-bottom: 5px;">Sign Out</button>
@@ -208,6 +209,7 @@
   <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
   <script src="app.js"></script>
   <script>
+    // Function that is called before the page is loaded so as to ensure the user is logged in and email authenticated.
      preChecks();
   </script>
  
