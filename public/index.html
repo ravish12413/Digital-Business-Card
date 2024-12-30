@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,270 +8,365 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
         /* Custom CSS for additional styling */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 100px;
+        }
+
+        .card-container h2{
+            font-size: large;
+            text-align: center;
+            margin-bottom: 10px;;
+        }
+
+        .card {
+            width: 325px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            margin: 20px;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .card-content {
+            padding: 16px;
+        }
+
+        .card-content h3 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+
+        .card-content p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.3;
+            text-align: justify;
+        }
+
+
+        .card-content .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 16px;
+            color: #fff;
+        }
 
         .nfc-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #92033c 100%);
+            background: linear-gradient(135deg, #202020 0%, #92033c 100%);
         }
+
         .hero-section {
             min-height: calc(100vh - 80px);
         }
+
         .pulse-animation {
             animation: pulse 2s infinite;
         }
+
         @keyframes pulse {
             0% {
                 transform: scale(1);
             }
+
             50% {
                 transform: scale(1.05);
             }
+
             100% {
                 transform: scale(1);
             }
         }
+
         /* Card Image Bounce Animation */
-.bounce-animation {
-    animation: bounce 2s infinite;
-    transition: transform 0.3s ease-in-out;
-}
+        .bounce-animation {
+            animation: bounce 2s infinite;
+            transition: transform 0.3s ease-in-out;
+        }
 
-.bounce-animation:hover {
-    transform: translateY(-10px) scale(1.05);
-}
+        .bounce-animation:hover {
+            transform: translateY(-10px) scale(1.05);
+        }
 
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-}
-.custom-size {
-    width: 30rem; /* Adjust to your desired width */
-    height: auto; /* Maintain aspect ratio */
-}
-.banner {
-    position: relative;
-    width: 100%; /* Full-width banner */
-    height: 300px; /* Adjust height as needed */
-    overflow: hidden;
-    margin: 0 auto; /* Center the banner */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #000; /* Fallback background color */
-}
+        @keyframes bounce {
 
-/* Banner Image */
-.banner-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures the image covers the container without distortion */
-    z-index: 1;
-}
-/* Banner Container */
-.curved-banner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    width: 100%; /* Full width */
-    height: 300px; /* Adjust height */
-    background-color: #000000; /* Background for text section */
-    overflow: hidden; /* Ensure no overflow */
-    border-radius: 50px 50px 50px 50px; /* Adds curve to the bottom */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for aesthetics */
-}
+            0%,
+            100% {
+                transform: translateY(0);
+            }
 
-/* Text Section */
+            50% {
+                transform: translateY(-10px);
+            }
+        }
 
-.curved-banner{
-    margin-top: 60px; /* Add margin to the top */
-    margin-bottom: 40px; /* Add margin to the bottom */
+        .custom-size {
+            width: 30rem;
+            /* Adjust to your desired width */
+            height: auto;
+            /* Maintain aspect ratio */
+        }
+
+        .banner {
+            position: relative;
+            width: 100%;
+            /* Full-width banner */
+            height: 300px;
+            /* Adjust height as needed */
+            overflow: hidden;
+            margin: 0 auto;
+            /* Center the banner */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #000;
+            /* Fallback background color */
+        }
+
+        /* Banner Image */
+        .banner-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Ensures the image covers the container without distortion */
+            z-index: 1;
+        }
+
+        /* Banner Container */
+        .curved-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            width: 100%;
+            /* Full width */
+            height: 300px;
+            /* Adjust height */
+            background-color: #000000;
+            /* Background for text section */
+            overflow: hidden;
+            /* Ensure no overflow */
+            border-radius: 50px 50px 50px 50px;
+            /* Adds curve to the bottom */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow for aesthetics */
+        }
+
+        /* Text Section */
+
+        .curved-banner {
+            margin-top: 60px;
+            /* Add margin to the top */
+            margin-bottom: 40px;
+            /* Add margin to the bottom */
 
 
-}
-.text-box {
+        }
 
-    flex: 1;
-    padding: 20px;
-    text-align: left;
-}
+        .text-box {
 
-.text-box h1 {
-    font-size: 2rem;
-    color: #ffffff;
-    margin: 0 0 10px;
-}
+            flex: 1;
+            padding: 20px;
+            text-align: left;
+        }
 
-.text-box p {
-    font-size: 1rem;
-    color: #555;
-    margin: 0;
-}
+        .text-box h1 {
+            font-size: 2rem;
+            color: #ffffff;
+            margin: 0 0 10px;
+        }
 
-/* Image Section */
-.image-box {
-    flex: 1;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    border-radius: 0 50px 0 0; /* Curve only on the top-right corner */
-    background-color: #831c1c; /* Placeholder background */
-}
+        .text-box p {
+            font-size: 1rem;
+            color: #555;
+            margin: 0;
+        }
 
-.image-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures image fits without distortion */
-    border-radius: 0 50px 0 0; /* Matches the curve of the container */
-}
+        /* Image Section */
+        .image-box {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 0 50px 0 0;
+            /* Curve only on the top-right corner */
+            background-color: #831c1c;
+            /* Placeholder background */
+        }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .curved-banner {
-        flex-direction: column; /* Stack the sections vertically */
-        height: auto;
-        border-radius: 0; /* Remove curve for small screens */
-        
-    }
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Ensures image fits without distortion */
+            border-radius: 0 50px 0 0;
+            /* Matches the curve of the container */
+        }
 
-    .text-box {
-        text-align: center;
 
-    }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .curved-banner {
+                flex-direction: column;
+                /* Stack the sections vertically */
+                height: auto;
+                border-radius: 0;
+                /* Remove curve for small screens */
 
-    .image-box {
-        border-radius: 0; /* Remove curve for small screens */
-    }
+            }
 
-    .image-box img {
-        border-radius: 0; /* Remove curve for consistency */
-    }
-}
-/* Footer Styles */
-.footer {
-    background-color: #222;
-    color: #fff;
-    padding: 40px 20px;
-    text-align: center;
-}
+            .text-box {
+                text-align: center;
 
-.footer-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
+            }
 
-.footer-column {
-    flex: 1;
-    min-width: 200px;
-    margin: 10px;
-    text-align: left;
-}
+            .image-box {
+                border-radius: 0;
+                /* Remove curve for small screens */
+            }
 
-.footer-column h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    font-weight: bold;
-}
+            .image-box img {
+                border-radius: 0;
+                /* Remove curve for consistency */
+            }
+        }
 
-.footer-column p {
-    font-size: 1rem;
-    line-height: 1.5;
-}
+        /* Footer Styles */
+        .footer {
+            background-color: #222;
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
 
-.footer-column ul {
-    list-style-type: none;
-    padding: 0;
-}
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
 
-.footer-column ul li {
-    margin-bottom: 10px;
-}
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin: 10px;
+            text-align: left;
+        }
 
-.footer-column ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1rem;
-}
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
 
-.footer-column ul li a:hover {
-    text-decoration: underline;
-}
+        .footer-column p {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
 
-.social-links {
-    display: flex;
-    gap: 10px;
-}
+        .footer-column ul {
+            list-style-type: none;
+            padding: 0;
+        }
 
-.social-icon {
-    color: #fff;
-    font-size: 1.5rem;
-    text-decoration: none;
-}
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
 
-.social-icon:hover {
-    color: #f1c40f;
-}
+        .footer-column ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+        }
 
-.footer-bottom {
-    margin-top: 40px;
-    font-size: 0.875rem;
-}
+        .footer-column ul li a:hover {
+            text-decoration: underline;
+        }
 
-/* Media Query for Responsive Design */
-@media (max-width: 768px) {
-    .footer-container {
-        flex-direction: column;
-        text-align: center;
-    }
+        .social-links {
+            display: flex;
+            gap: 10px;
+        }
 
-    .footer-column {
-        min-width: auto;
-        margin-bottom: 20px;
-    }
+        .social-icon {
+            color: #fff;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
 
-    .footer-column h3 {
-        font-size: 1.25rem;
-    }
-}
+        .social-icon:hover {
+            color: #f1c40f;
+        }
 
+        .footer-bottom {
+            margin-top: 40px;
+            font-size: 0.875rem;
+        }
+
+
+
+        /* Media Query for Responsive Design */
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-column {
+                min-width: auto;
+                margin-bottom: 20px;
+            }
+
+            .footer-column h3 {
+                font-size: 1.25rem;
+            }
+        }
     </style>
 </head>
+
 <body class="bg-gray-100 font-sans">
- <!-- Navigation -->
-<nav class="bg-black shadow-md fixed w-full z-10 top-0">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-22">
-            <!-- Logo and Company Name -->
-            <div class="flex items-center">
-                <div class="flex-shrink-0 flex items-center">
-                    <a href="https://www.marsmetatech.com">
-                        <img class="mr-3" src="image/lo.png" alt="Company Logo" width="70px" height="70px">
-                    </a>
-                    <span class="text-xl font-bold text-white">
-                        <a href="https://www.marsmetatech.com">MarsMeta Tech</a>
-                    </span>
+    <!-- Navigation -->
+    <nav class="bg-black shadow-md fixed w-full z-10 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-22">
+                <!-- Logo and Company Name -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="https://www.marsmetatech.com">
+                            <img class="mr-3" src="image/lo.png" alt="Company Logo" width="70px" height="70px">
+                        </a>
+                        <span class="text-xl font-bold text-white">
+                            <a href="https://www.marsmetatech.com">MarsMeta Tech</a>
+                        </span>
+                    </div>
                 </div>
+
+                <!-- Register Button -->
+                <div>
+                    <a href="login.html"
+                        class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out">
+                        Register
+                    </a>
+                </div>
+
             </div>
-        
-            <!-- Register Button -->
-            <div>
-                <a href="login.html" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out">
-                    Register
-                </a>
-            </div>
-            
         </div>
-    </div>
-</nav>
+    </nav>
 
 
     <!-- Hero Section -->
@@ -281,24 +377,23 @@
                     Create Your Personalized Digital Visiting Card
                 </h1>
                 <p class="text-xl md:text-2xl mb-8 opacity-90">
-                    Ready to revolutionize your networking experience? With our cutting-edge NFC technology, you can now create a personalized digital visiting card that reflects your professional identity.
+                    Ready to revolutionize your networking experience? With our cutting-edge NFC technology, you can now
+                    create a personalized digital visiting card that reflects your professional identity.
                 </p>
                 <div class="flex justify-center space-x-4">
-                    <a href="https://www.marsmetatech.com" class="bg-white text-purple-600 hover:bg-gray-100 px-6 py-3 rounded-full font-semibold transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110">
+                    <a href="https://www.marsmetatech.com"
+                        class="bg-white text-purple-600 hover:bg-gray-100 px-6 py-3 rounded-full font-semibold transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110">
                         Explore MarsMeta
                     </a>
-                    <a href="login.html" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-purple-600 px-6 py-3 rounded-full font-semibold transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110">
+                    <a href="login.html"
+                        class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-purple-600 px-6 py-3 rounded-full font-semibold transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110">
                         Login
                     </a>
                 </div>
             </div>
         </div>
-        <div class="absolute bottom-16 left-1/2 transform -translate-x-1/2 translate-y-8 md:translate-y-16">
-            <img src="image/pppp.png" alt="Digital Card" class="w-80 md:w-250 h-auto bounce-animation">
-
-        </div>
     </div>
-    
+
     <!-- <div class="curved-banner">
         <div class="text-box">
             <h1>Get Started Today!</h1>
@@ -309,9 +404,46 @@
             <img src="image/banner.png" alt="Curved Banner Image">
         </div>
     </div> -->
+    <h2>How MMTCards Work?</h2>
+    <div class="card-container">
+        <div class="card">
+            <img src="image/feature1.png">
+            <div class="card-content">
+                <h3>Create Digital Card</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat enim praesentium, quod nostrum
+                    eligendi voluptate quidem velit omnis sequi aperiam consectetur ut atque asperiores id reiciendis
+                    quo provident deserunt rem.</p>
+                <a href="" class="btn">Click Here</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="image/feature2.png">
+            <div class="card-content">
+                <h3>Embed into NFC Card</h3>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus maiores sint debitis ratione
+                    esse cupiditate officia exercitationem impedit nemo aliquid labore corrupti voluptatem, dicta quas
+                    et id aut aspernatur excepturi!</p>
+                <a href="" class="btn">Click Here</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="image/feature3.png">
+            <div class="card-content">
+                <h3>Share</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti ex doloribus itaque possimus
+                    maiores, reiciendis, rem explicabo sit, dolores laudantium qui molestias error earum magni
+                    consequatur perspiciatis expedita totam ratione.</p>
+                <a href="" class="btn">Click Here</a>
+            </div>
+        </div>
+    </div>
+
+
     <footer class="footer">
         <div class="footer-container">
-            
+
             <div class="footer-column">
                 <h3>Quick Links</h3>
                 <ul>
@@ -322,7 +454,7 @@
                 </ul>
             </div>
             <div class="footer-column">
-                <h3>Contact</h3>
+                <h3>Contact Us</h3>
                 <ul>
                     <li><strong>Email:</strong> <a href="mailto:info@marsmetatech.com">info@marsmetatech.com</a></li>
                     <li><strong>Phone:</strong> <a href="tel:+918188890434">+91 81888 90434</a></li>
@@ -341,7 +473,7 @@
                 <h3>MMT Cards</h3>
                 <p>MMT Card is NFC enabled smart card which opens your digital profile when tapped !.</p>
             </div>
-           
+
 
         </div>
         <div class="footer-bottom">
@@ -352,11 +484,11 @@
 
 
     <script>
-        
+
         // Interactive JavaScript
         document.addEventListener('DOMContentLoaded', () => {
             const registerBtn = document.querySelector('a[href="#"]');
-            
+
             registerBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 alert('Registration page coming soon! Stay tuned.');
@@ -376,4 +508,5 @@
         });
     </script>
 </body>
+
 </html>
