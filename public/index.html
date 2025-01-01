@@ -8,6 +8,41 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
         /* Custom CSS for additional styling */
+        .sliderlogo{
+            background-color: white;
+        }
+
+        .slider img {
+            width: 200px;
+            height: 200px;
+            animation: scroll 50s linear infinite;
+            animation-iteration-count: infinite; 
+        }
+
+        .slide-track {
+            width: 100%;
+            display: flex;
+            gap: 5px;
+            overflow: hidden;
+        }
+
+        .slider {
+            background-color: white;
+            padding: 8em 2em;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translatex(-1000%)
+            }
+        }
+
+
+
         .card-container {
             display: flex;
             justify-content: center;
@@ -15,10 +50,10 @@
             margin-top: 10px;
         }
 
-        .featureHeading{
+        .featureHeading {
             font-size: 2rem;
             text-align: center;
-            margin-top: 30px ;
+            margin-top: 30px;
             padding: 2px;
         }
 
@@ -224,6 +259,21 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+
+            .slider img {
+            width: 100px;
+            height: 100px;
+            animation: scroll 50s linear infinite;
+            animation-iteration-count: infinite; 
+            }
+
+            .slide-track {
+            width: 100%;
+            display: flex;
+            gap: 5px;
+            overflow: hidden;
+          }
+            
             .curved-banner {
                 flex-direction: column;
                 /* Stack the sections vertically */
@@ -401,9 +451,14 @@
             <img src="image/feature1.png">
             <div class="card-content">
                 <h3><b>Create Digital Card</b></h3>
-                <p style="text-align:justify;">Start by creating an account to access our diverse range of templates. Once registered, fill in your professional details, including name, contact information, and social media links. 
-                    Select a template that best represents your brand, and customize it with your own logo, colors, and design elements. Our user-friendly interface ensures that even design novices can create stunning digital cards.
-                     Save and share your card effortlessly, ensuring your professional presence is always a tap away. 🚀✨</p>
+                <p style="text-align:justify;">Start by creating an account to access our diverse range of templates.
+                    Once registered, fill in your professional details, including name, contact information, and social
+                    media links.
+                    Select a template that best represents your brand, and customize it with your own logo, colors, and
+                    design elements. Our user-friendly interface ensures that even design novices can create stunning
+                    digital cards.
+                    Save and share your card effortlessly, ensuring your professional presence is always a tap away. 🚀✨
+                </p>
             </div>
         </div>
 
@@ -411,7 +466,12 @@
             <img src="image/feature2.png">
             <div class="card-content">
                 <h3><b>Embed into NFC Card</b></h3>
-                <p style="text-align: justify;">the next step is to embed it into an NFC card for seamless sharing. Our platform makes this process simple and efficient. Once your digital card is ready, you'll be prompted to transfer the information onto an NFC card. Simply hold the NFC card against your device to initiate the embedding process. The data will be encoded onto the NFC chip, allowing you to share your professional details with just a tap. Say goodbye to paper cards and embrace the future of digital networking! 🌐✨</p>
+                <p style="text-align: justify;">the next step is to embed it into an NFC card for seamless sharing. Our
+                    platform makes this process simple and efficient. Once your digital card is ready, you'll be
+                    prompted to transfer the information onto an NFC card. Simply hold the NFC card against your device
+                    to initiate the embedding process. The data will be encoded onto the NFC chip, allowing you to share
+                    your professional details with just a tap. Say goodbye to paper cards and embrace the future of
+                    digital networking! 🌐✨</p>
             </div>
         </div>
 
@@ -419,7 +479,50 @@
             <img src="image/feature3.png">
             <div class="card-content">
                 <h3><b>Share</b></h3>
-                <p style="text-align: justify;">Simply tap your NFC card against any NFC-enabled device, and your digital card will instantly appear on the recipient's screen. This contactless sharing method ensures a smooth and professional exchange of information, making networking more efficient than ever. No more fumbling with paper cards or manually entering details—just a quick tap, and your contact information is shared seamlessly. Embrace the convenience and modernity of digital networking, ensuring you always make a lasting impression. 🌟📱</p>
+                <p style="text-align: justify;">Simply tap your NFC card against any NFC-enabled device, and your
+                    digital card will instantly appear on the recipient's screen. This contactless sharing method
+                    ensures a smooth and professional exchange of information, making networking more efficient than
+                    ever. No more fumbling with paper cards or manually entering details—just a quick tap, and your
+                    contact information is shared seamlessly. Embrace the convenience and modernity of digital
+                    networking, ensuring you always make a lasting impression. 🌟📱</p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="logoslider">
+        <div class="slider">
+            <div class="featureHeading text-4xl md:text-6xl font-bold mb-6 pulse-animation" style="margin-bottom: 20px;">
+                <h2>Trusted By</h2>
+            </div>
+            <div class="slide-track">
+                <div class="slide">
+                    <img src="image/logo1.png" alt="">
+                </div>
+                <div class="slide">
+                    <img src="image/logo2.png" alt="">
+                </div>
+                <div class="slide">
+                    <img src="image/logo3.png"
+                        alt="">
+                </div>
+                <div class="slide">
+                    <img src="image/logo4.png" alt="">
+                </div>
+                <div class="slide">
+                    <img src="image/logo1.png" alt="">
+                </div>
+                <div class="slide">
+                    <img src="image/logo2.png" alt="">
+                </div>
+                <div class="slide">
+                    <img src="image/logo3.png"
+                        alt="">
+                </div>
+                <div class="slide">
+                    <img src="image/logo4.png" alt="">
+                </div>
             </div>
         </div>
     </div>
