@@ -4,8 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Profile</title>
-  <link rel="manifest" href="/username/manifest.json">
+  <link id="dynamicManifest" rel="manifest" href="" />
 </head>
 
 <body>
@@ -17,9 +16,12 @@
   </div>
 
   <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
-  <script src="app.js?v=0.1"></script>
+  <script src="app.js"></script>
 
   <script>  
+    const uname = window.location.pathname.split("/")[1];
+    const dynamicManifest = document.getElementById("dynamicManifest");
+    dynamicManifest.href = `/${uname}/manifest.json`;
     //The Dynamic HTML content is defined in the fetchUserData() function in app.js file 
     fetchUserData();
   </script>

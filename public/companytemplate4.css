@@ -275,7 +275,7 @@ body {
     margin-bottom: 20px;
 }
 
-.center-button {
+/* .center-button {
     display: inline-block;
     background-color: #2a4a95;
     color: white;
@@ -285,7 +285,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
+} */
 
 .center-button:hover {
     background-color: #1a3a75;

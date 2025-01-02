@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MMT Cards</title>
+  </head>
+  <body>
+    <p>Please wait loading ......</p>
+  </body>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const username = window.location.pathname.split("/")[1];
+      if (username) {
+        const userPage = `/${username}`;
+        if (window.location.pathname !== userPage) {
+          window.location.replace(userPage);
+        }
+      } else {
+        console.log(
+          "Username not found in localStorage. Staying on the default page."
+        );
+      }
+    });
+  </script>
+</html>

@@ -19,7 +19,6 @@ let deferredPrompt;
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault(); // Prevent automatic prompt
   deferredPrompt = e; // Save the event for later use
-  console.log("beforeinstallprompt event fired");
 });
 
 function showInstallPrompt() {
@@ -29,15 +28,16 @@ function showInstallPrompt() {
   }
 
   const installButton = document.createElement("button");
-  installButton.textContent = "Install Digital Business Card PWA";
+  installButton.textContent = "Install";
+  installButton.style.fontSize = "16px";
   installButton.style.position = "fixed";
-  installButton.style.bottom = "20px";
-  installButton.style.right = "20px";
+  installButton.style.bottom = "45px";
+  installButton.style.right = "47%";
   installButton.style.padding = "10px 20px";
-  installButton.style.backgroundColor = "#2a4a95";
-  installButton.style.color = "#fff";
+  installButton.style.backgroundColor = "yellow";
+  installButton.style.color = "#000000";
   installButton.style.border = "none";
-  installButton.style.zIndex = '9999';
+  installButton.style.zIndex = "9999";
   installButton.style.borderRadius = "5px";
   installButton.style.cursor = "pointer";
 
@@ -742,10 +742,9 @@ function fetchUserData() {
                                
                       </div>
                       <div>
-                      
                                   <button class="center-button" onclick="generateDynamicVCF('${username}')">Add Contact</button></div>
-
                        </div>
+    
                   </div>`;
 
 
@@ -787,6 +786,8 @@ function fetchUserData() {
           modal.style.display = "none";
         }
       }
+      
+      showInstallPrompt(); // Show the install prompt button
 
       // Hide the loading message
       if (loadingMessage) loadingMessage.style.display = "none";
@@ -857,7 +858,48 @@ function initSlideshow(slideshowId) {
 
 // Function to Register Service Worker for PWA.
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/sw.js").then(() => {
+  navigator.serviceWorker.register("/sw789.js").then(() => {
     console.log("Service Worker Registered");
   });
 }
+
+
+// Extract username from query parameters
+function getUsernameFromURL() {
+  const pathSegments = window.location.pathname.split("/");
+  let username = pathSegments[pathSegments.length - 1];
+  return username;
+}
+
+// Store username locally
+function storeUsername(username) {
+  if (username) {
+    localStorage.setItem("username", username); // Store the username as a string
+  }
+}
+
+// Load username from localStorage
+function loadUsername() {
+  return localStorage.getItem("username"); // Retrieve the stored username
+}
+
+// Initialize the app
+function initApp() {
+  let username = getUsernameFromURL(); // Get username from URL
+
+  if (username) {
+    storeUsername(username); // Save the username in localStorage
+  } else {
+    username = loadUsername(); // Fallback: Load the username from localStorage
+  }
+
+  if (!username) {
+    return;
+  }
+
+  // Load user-specific content
+  // Add your logic to load dynamic content for the user
+}
+
+// Call initApp on page load
+document.addEventListener("DOMContentLoaded", initApp);
