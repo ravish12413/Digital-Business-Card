@@ -1,5 +1,3 @@
-// File: service-worker.js
-
 const CACHE_NAME = "dynamic-user-cache-v1";
 
 // Install event: initialize the cache
@@ -35,19 +33,28 @@ self.addEventListener("fetch", (event) => {
   // Check if the URL is a user-specific manifest or resource
   if (requestUrl.pathname.match(/^\/[^/]+$/)) {
     event.respondWith(
-      caches.match(event.request).then((cachedResponse) => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
+      fetch(event.request)
+        .then((networkResponse) => {
+          // Check Cache-Control headers
+          const cacheControl = networkResponse.headers.get("Cache-Control");
+          if (
+            cacheControl &&
+            (cacheControl.includes("no-cache") || cacheControl.includes("must-revalidate"))
+          ) {
+            // Do not cache if headers specify no-cache or must-revalidate
+            return networkResponse;
+          }
 
-        // If not in cache, fetch from network and cache it
-        return fetch(event.request).then((networkResponse) => {
+          // Cache the response if allowed (no "no-store")
           return caches.open(CACHE_NAME).then((cache) => {
             cache.put(event.request, networkResponse.clone());
             return networkResponse;
           });
-        });
-      })
+        })
+        .catch(() => {
+          // If network fails, attempt to serve from cache
+          return caches.match(event.request);
+        })
     );
   }
 });
