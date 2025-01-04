@@ -2,6 +2,12 @@
 const express = require('express');
 const path = require('path');
 
+
+// This below line creates an instance of an Express application and assigns it to the app variable. 
+// This app object will be used to define routes, middleware, and other server configurations.
+const app = express();
+const PORT = process.env.PORT || 8000; // Use dynamic port for deployment or faalback to default 3000 if not defined
+
 // Cache Busting 
 app.use((req, res, next) => {
   res.set('Cache-Control', 'no-cache, must-revalidate'); // HTTP 1.1
@@ -10,11 +16,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
-// This below line creates an instance of an Express application and assigns it to the app variable. 
-// This app object will be used to define routes, middleware, and other server configurations.
-const app = express();
-const PORT = process.env.PORT || 8000; // Use dynamic port for deployment or faalback to default 3000 if not defined
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
