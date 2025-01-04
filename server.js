@@ -2,13 +2,6 @@
 const express = require('express');
 const path = require('path');
 
-app.use((req, res, next) => {
-  res.set('Cache-Control', 'no-cache, must-revalidate'); // HTTP 1.1
-  res.set('Pragma', 'no-cache'); // HTTP 1.0
-  res.set('Expires', '0'); // Proxies
-  next();
-});
-
 
 // This below line creates an instance of an Express application and assigns it to the app variable. 
 // This app object will be used to define routes, middleware, and other server configurations.
