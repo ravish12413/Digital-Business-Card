@@ -901,7 +901,7 @@ function initSlideshow(slideshowId) {
 
 // Function to Register Service Worker for PWA.
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/sw789.js").then(() => {
+  navigator.serviceWorker.register("/sw780.js").then(() => {
     console.log("Service Worker Registered");
   });
 }
