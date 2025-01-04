@@ -27,17 +27,52 @@ function showInstallPrompt() {
     return;
   }
 
+  // Create the popup container
+  const popupContainer = document.createElement("div");
+  popupContainer.style.position = "fixed";
+  popupContainer.style.top = "50%";
+  popupContainer.style.left = "50%";
+  popupContainer.style.transform = "translate(-50%, -50%)"; // Center the popup
+  popupContainer.style.width = "300px";
+  popupContainer.style.padding = "20px";
+  popupContainer.style.backgroundColor = "white";
+  popupContainer.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
+  popupContainer.style.borderRadius = "8px";
+  popupContainer.style.zIndex = "9999";
+  popupContainer.style.textAlign = "center";
+  popupContainer.style.fontFamily = "Arial, sans-serif";
+
+  // Create the close button (X icon)
+  const closeButton = document.createElement("span");
+  closeButton.textContent = "×"; // Unicode for X icon
+  closeButton.style.position = "absolute";
+  closeButton.style.top = "10px";
+  closeButton.style.right = "10px";
+  closeButton.style.cursor = "pointer";
+  closeButton.style.fontSize = "18px";
+  closeButton.style.color = "#888";
+  closeButton.style.fontWeight = "bold";
+
+  // Close the popup when the X icon is clicked
+  closeButton.onclick = () => {
+    popupContainer.remove();
+  };
+
+  // Create the text inside the popup
+  const popupText = document.createElement("p");
+  popupText.textContent = "Install this Card in your Device!";
+  popupText.style.margin = "0 0 10px";
+  popupText.style.fontSize = "16px";
+  popupText.style.color = "#333";
+
+  // Create the install button
   const installButton = document.createElement("button");
   installButton.textContent = "Install";
   installButton.style.fontSize = "16px";
-  installButton.style.position = "fixed";
-  installButton.style.bottom = "45px";
-  installButton.style.right = "47%";
   installButton.style.padding = "10px 20px";
   installButton.style.backgroundColor = "yellow";
   installButton.style.color = "#000000";
   installButton.style.border = "none";
-  installButton.style.zIndex = "9999";
   installButton.style.borderRadius = "5px";
   installButton.style.cursor = "pointer";
 
@@ -50,12 +85,20 @@ function showInstallPrompt() {
         console.log("User dismissed the PWA install");
       }
       deferredPrompt = null; // Reset the deferred prompt
-      installButton.remove(); // Hide the install button
+      popupContainer.remove(); // Hide the popup
     });
   };
 
-  document.body.appendChild(installButton); // Add the button to the DOM
+  // Add the close button, text, and install button to the popup container
+  popupContainer.appendChild(closeButton);
+  popupContainer.appendChild(popupText);
+  popupContainer.appendChild(installButton);
+
+  // Append the popup container to the body
+  document.body.appendChild(popupContainer);
 }
+
+
 
 
 //Some Variable Declarations
