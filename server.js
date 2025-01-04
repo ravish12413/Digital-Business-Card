@@ -8,12 +8,22 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 8000; // Use dynamic port for deployment or faalback to default 3000 if not defined
 
-// Cache Busting 
+// Cache Busting for global resources
 app.use((req, res, next) => {
   res.set('Cache-Control', 'no-cache, must-revalidate'); // HTTP 1.1
   res.set('Pragma', 'no-cache'); // HTTP 1.0
   res.set('Expires', '0'); // Proxies
   next();
+});
+
+// Cache control specifically for index.html (override global cache for index.html)
+app.get('/index.html', (req, res, next) => {
+  res.set('Cache-Control', 'no-cache, no-store, must-revalidate'); // Ensure no cache for index.html
+  res.set('Pragma', 'no-cache'); // HTTP 1.0
+  res.set('Expires', '0'); // Proxies
+  next();
+}, (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));  // Serve the index.html file
 });
 
 

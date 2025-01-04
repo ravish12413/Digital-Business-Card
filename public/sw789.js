@@ -1,4 +1,4 @@
-const CACHE_NAME = "dynamic-user-cache-v1";
+const CACHE_NAME = "dynamic-user-cache-v3";
 
 // Install event: initialize the cache
 self.addEventListener("install", (event) => {
