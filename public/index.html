@@ -9,28 +9,38 @@
     <link rel="icon" type="image/png" href="/image/faviconmmt.png">
     <style>
         /* Custom CSS for additional styling */
-        .sliderlogo{
+        .logoslider {
             background-color: white;
-        }
-
-        .slider img {
-            width: 200px;
-            height: 200px;
-            animation: scroll 50s linear infinite;
-            animation-iteration-count: infinite; 
-        }
-
-        .slide-track {
-            width: 100%;
-            display: flex;
-            gap: 5px;
-            overflow: hidden;
         }
 
         .slider {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
             background-color: white;
-            padding: 8em 2em;
         }
+
+        /* Slide track (container for images) */
+        .slide-track {
+            display: flex;
+            animation: scroll 20s linear infinite;
+        }
+
+        /* Individual slide */
+        .slide {
+            flex: 0 0 auto;
+            /* Prevent shrinking or growing */
+        }
+
+        /* Images */
+        .slide img {
+            width: 200px;
+            height: auto;
+            object-fit: contain;
+            /* Ensures images fit within their container */
+        }
+
+
 
         @keyframes scroll {
             0% {
@@ -38,8 +48,15 @@
             }
 
             100% {
-                transform: translatex(-1000%)
+                transform: translateX(-100%)
             }
+        }
+
+        .slide-track::after {
+            content: '';
+            display: flex;
+            width: 100%;
+            animation: inherit;
         }
 
 
@@ -261,43 +278,29 @@
         /* Responsive Design */
         @media (max-width: 768px) {
 
-            .slider img {
-            width: 100px;
-            height: 100px;
-            animation: scroll 50s linear infinite;
-            animation-iteration-count: infinite; 
-            }
+        .curved-banner {
+            flex-direction: column;
+            /* Stack the sections vertically */
+            height: auto;
+            border-radius: 0;
+            /* Remove curve for small screens */
 
-            .slide-track {
-            width: 100%;
-            display: flex;
-            gap: 5px;
-            overflow: hidden;
-          }
-            
-            .curved-banner {
-                flex-direction: column;
-                /* Stack the sections vertically */
-                height: auto;
-                border-radius: 0;
-                /* Remove curve for small screens */
+        }
 
-            }
+        .text-box {
+            text-align: center;
 
-            .text-box {
-                text-align: center;
+        }
 
-            }
+        .image-box {
+            border-radius: 0;
+            /* Remove curve for small screens */
+        }
 
-            .image-box {
-                border-radius: 0;
-                /* Remove curve for small screens */
-            }
-
-            .image-box img {
-                border-radius: 0;
-                /* Remove curve for consistency */
-            }
+        .image-box img {
+            border-radius: 0;
+            /* Remove curve for consistency */
+        }
         }
 
         /* Footer Styles */
@@ -395,13 +398,14 @@
 <body class="bg-gray-100 font-sans">
     <!-- Navigation -->
     <nav class="bg-black shadow-md fixed w-full z-10 top-0">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto pr-4 sm:pr-6 lg:pr-8">
             <div class="flex items-center justify-between h-22">
                 <!-- Logo and Company Name -->
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 flex items-center">
+                <div class="flex justify-between">
+                    <div class="flex-shrink-0 flex" style="align-self: flex-start; ">
                         <a href="https://www.marsmetatech.com">
-                            <img class="" src="image/mmtlogo.png" alt="Company Logo" width="150vw" height="auto" style="padding: 5px;">
+                            <img src="image/mmtlogo.png" alt="Company Logo" width="150vw" height="auto"
+                                style="padding: 10px; ">
                         </a>
                     </div>
                 </div>
@@ -490,11 +494,12 @@
         </div>
     </div>
 
-    
+
 
     <div class="logoslider">
         <div class="slider">
-            <div class="featureHeading text-4xl md:text-6xl font-bold mb-6 pulse-animation" style="margin-bottom: 20px;">
+            <div class="featureHeading text-4xl md:text-6xl font-bold mb-6 pulse-animation"
+                style="margin-bottom: 20px;">
                 <h2>Trusted By</h2>
             </div>
             <div class="slide-track">
@@ -505,8 +510,7 @@
                     <img src="image/logo2.png" alt="">
                 </div>
                 <div class="slide">
-                    <img src="image/logo3.png"
-                        alt="">
+                    <img src="image/logo3.png" alt="">
                 </div>
                 <div class="slide">
                     <img src="image/logo4.png" alt="">
@@ -518,8 +522,33 @@
                     <img src="image/logo2.png" alt="">
                 </div>
                 <div class="slide">
-                    <img src="image/logo3.png"
-                        alt="">
+                    <img src="image/logo3.png" alt="">
+                </div>
+                <div class="slide">
+                    <img src="image/logo4.png" alt="">
+                </div>
+
+                <div class="slide">
+                    <img src="image/logo1.png" alt="">
+                </div>
+                <div class="slide">
+                    <img src="image/logo2.png" alt="">
+                </div>
+                <div class="slide">
+                    <img src="image/logo3.png" alt="">
+                </div>
+                <div class="slide">
+                    <img src="image/logo4.png" alt="">
+                </div>
+
+                <div class="slide">
+                    <img src="image/logo1.png" alt="">
+                </div>
+                <div class="slide">
+                    <img src="image/logo2.png" alt="">
+                </div>
+                <div class="slide">
+                    <img src="image/logo3.png" alt="">
                 </div>
                 <div class="slide">
                     <img src="image/logo4.png" alt="">
@@ -530,9 +559,9 @@
 
 
     <footer class="footer">
-        <div class="footer-container">
+        <div class="footer-container" style="margin: 50px;">
 
-            <div class="footer-column">
+            <div class="footer-column" >
                 <h3>Quick Links</h3>
                 <ul>
                     <li><a href="https://www.marsmetatech.com">Home</a></li>
@@ -570,31 +599,6 @@
     </footer>
 
 
-
-    <script>
-
-        // Interactive JavaScript
-        document.addEventListener('DOMContentLoaded', () => {
-            const registerBtn = document.querySelector('a[href="#"]');
-
-            registerBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                alert('Registration page coming soon! Stay tuned.');
-            });
-
-            // Simple scroll reveal effect
-            const heroSection = document.querySelector('.hero-section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-fadeIn');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            observer.observe(heroSection);
-        });
-    </script>
 </body>
 
 </html>
