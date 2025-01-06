@@ -79,7 +79,7 @@ Here's an explanation of the purpose of each file or folder in your project dire
    - This file locks the exact versions of the dependencies and their nested dependencies used in the project.  
    - It ensures consistent installations across different environments.
 
-6. 📄**`vercel.json`**  
+6. 📄 **`vercel.json`**  
    - This file contains configuration settings for deploying this project to [Vercel](https://vercel.com/).  
    - It may specify build and deployment settings, environment variables, routing, and more, to tailor the deployment process to your application's needs.
 
