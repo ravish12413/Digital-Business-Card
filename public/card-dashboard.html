@@ -15,7 +15,10 @@
     padding: 15px;
     
     font-size: 24px;
-}
+  }
+  #companyLogourl, #qrcodelinkurl, #companyBannerurl, #representativePictureurl, #gallery1url, #gallery2url, #gallery3url {
+    display: none;
+  }
    </style>
 </head>
 
@@ -59,8 +62,10 @@
         </div>
     
         <div class="form-group">
-          <label for="exampleFormControlInput1">Company Logo URL</label>
-          <input type="text" class="form-control" id="companyLogo" placeholder="Upload Your Company logo" required
+          <label for="exampleFormControlInput1">Company Logo</label>
+          <input type="file"  class="form-control" id="logoimage" name="logoimage" accept="image/*" required  readonly>
+          <!-- Hidden Image URL Input -->
+          <input type="hidden" class="form-control" id="companyLogourl" placeholder="Upload Your Company logo" required
             readonly>
         </div>
 
@@ -76,14 +81,18 @@
         </div>
 
         <div class="form-group">
-            <label for="exampleFormControlInput1">QR code Link</label>
-            <input type="text" class="form-control" id="qrcodelink" placeholder="QR Code" required readonly>
+            <label for="exampleFormControlInput1">QR code </label>
+            <input type="file" class="form-control" id="qrcodeimage" name="qrcodeimage" accept="image/*" required readonly>
+              <!-- Hidden Image URL Input -->
+            <input type="hidden" class="form-control" id="qrcodelinkurl" placeholder="QR Code" required readonly>
         </div>
 
 
         <div class="form-group">
-          <label for="exampleFormControlInput1">Company Banner URL</label>
-          <input type="text" class="form-control" id="companyBanner" placeholder="Company Banner" required readonly>
+          <label for="exampleFormControlInput1">Company Banner</label>
+          <input type="file" class="form-control" id="BannerImage" name="BannerImage" accept="image/*" required readonly>
+            <!-- Hidden Image URL Input -->
+          <input type="hidden" class="form-control" id="companyBannerurl" placeholder="Company Banner" required readonly>
         </div>
 
 
@@ -96,8 +105,10 @@
         </div>
 
         <div class="form-group">
-          <label for="exampleFormControlInput1">Representative Profile Picture URL</label>
-          <input type="text" class="form-control" id="representativePicture" placeholder="Representative Picture"
+          <label for="exampleFormControlInput1">Representative Profile Picture</label>
+          <input type="file" class="form-control" id="Profileimage" name="Profileimage" accept="image/*" required readonly>
+            <!-- Hidden Image URL Input -->
+          <input type="hidden" class="form-control" id="representativePictureurl" placeholder="Representative Picture"
             required readonly> <!-- New field -->
         </div>
 
@@ -162,19 +173,25 @@
 
         <div class="form-group">
           <label for="exampleFormControlInput1">Gallery Image 1</label>
-          <input type="text" class="form-control" id="gallery1" placeholder="Gallery Image 1" required readonly>
+          <input type="file" class="form-control" id="galleryimage1" name="galleryimage1" accept="image/*" required readonly>
+            <!-- Hidden Image URL Input -->
+          <input type="hidden" class="form-control" id="gallery1url" placeholder="Gallery Image 1" required readonly>
           <!-- New field -->
         </div>
 
         <div class="form-group">
           <label for="exampleFormControlInput1">Gallery Image 2</label>
-          <input type="text" class="form-control" id="gallery2" placeholder="Gallery Image 2" required readonly>
+          <input type="file" class="form-control" id="galleryimage2" name="galleryimage2" accept="image/*" required readonly>
+            <!-- Hidden Image URL Input -->
+          <input type="hidden" class="form-control" id="gallery2url" placeholder="Gallery Image 2" required readonly>
           <!-- New field -->
         </div>
 
         <div class="form-group">
           <label for="exampleFormControlInput1">Gallery Image 3</label>
-          <input type="text" class="form-control" id="gallery3" placeholder="Gallery Image 3" required readonly>
+          <input type="file" class="form-control" id="galleryimage3" name="galleryimage3" accept="image/*" required readonly>
+            <!-- Hidden Image URL Input -->
+          <input type="hidden" class="form-control" id="gallery3url" placeholder="Gallery Image 3" required readonly>
           <!-- New field -->
         </div>
 
@@ -227,7 +244,7 @@
       </button>
 
       <!-- Other fields as needed -->
-      <button type="submit" class="btn btn-primary" id="saveBtn" style="display: none;" onclick="submitForm()">Save</button>
+      <button type="submit" class="btn btn-primary" id="saveBtn" style="display: none;">Save</button>
 
     </div>
   </form>

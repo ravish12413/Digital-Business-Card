@@ -255,13 +255,13 @@ function preChecks() {
 function populateFormFields(data) {
   console.log("Fetched data:", data);
   template.value = data.template || "companytemplate1";
-  companyLogo.value = data.companyLogo || "Not Provided";
+  companyLogourl.value = data.companyLogo || "Not Provided";
   companyName.value = data.companyName || "Not Provided";
   companyTagline.value = data.companyTagline || "Not Provided";
-  qrcodelink.value = data.qrcodelink || "Not Provided";
-  companyBanner.value = data.companyBanner || "Not Provided";
+  qrcodelinkurl.value = data.qrcodelink || "Not Provided";
+  companyBannerurl.value = data.companyBanner || "Not Provided";
   representativeName.value = data.representativeName || "Not Provided";
-  representativePicture.value = data.representativePicture || "Not Provided";
+  representativePictureurl.value = data.representativePicture || "Not Provided";
   representativeDesignation.value = data.representativeDesignation || "Not Provided";
   repPhoneNumber.value = data.repPhoneNumber || "Not Provided";
   repWhatsappNumber.value = data.repWhatsappNumber || "Not Provided";
@@ -271,9 +271,9 @@ function populateFormFields(data) {
   catalog.value = data.catalog || "Not Provided";
   services.value = data.services || "Not Provided";
   address.value = data.address || "Not Provided";
-  gallery1.value = data.gallery1 || "Not Provided";
-  gallery2.value = data.gallery2 || "Not Provided";
-  gallery3.value = data.gallery3 || "Not Provided";
+  gallery1url.value = data.gallery1 || "Not Provided";
+  gallery2url.value = data.gallery2 || "Not Provided";
+  gallery3url.value = data.gallery3 || "Not Provided";
   website.value = data.website || "Not Provided";
   facebook.value = data.facebook || "Not Provided";
   instagram.value = data.instagram || "Not Provided";
@@ -284,55 +284,130 @@ function populateFormFields(data) {
   toggleViewMode(true); // Start in view mode
 
 }
-
 //Function that is called on the click of save button. Accessing DOM elements value and passing it into saveMessage function
-function submitForm() {
+document.getElementById('saveBtn').addEventListener('click', async (event) => {
+  event.preventDefault();
+
   // DOM elements
-  let template = document.getElementById('template').value;
-  let companyLogo = document.getElementById('companyLogo').value;
-  let companyName = document.getElementById('companyName').value;
-  let companyTagline = document.getElementById('companyTagline').value;
-  let qrcodelink = document.getElementById('qrcodelink').value;
-  let companyBanner = document.getElementById('companyBanner').value;
-  let representativePicture = document.getElementById('representativePicture').value;
-  let representativeName = document.getElementById('representativeName').value;
-  let representativeDesignation = document.getElementById('representativeDesignation').value;
-  let repPhoneNumber = document.getElementById('repPhoneNumber').value;
-  let repWhatsappNumber = document.getElementById('repWhatsappNumber').value;
-  let email = document.getElementById('email').value;
-  let about = document.getElementById('about').value;
-  let legalInfo = document.getElementById('legalInfo').value;
-  let catalog = document.getElementById('catalog').value;
-  let services = document.getElementById('services').value;
-  let address = document.getElementById('address').value;
-  let gallery1 = document.getElementById('gallery1').value;
-  let gallery2 = document.getElementById('gallery2').value;
-  let gallery3 = document.getElementById('gallery3').value;
-  let website = document.getElementById('website').value;
-  let facebook = document.getElementById('facebook').value;
-  let instagram = document.getElementById('instagram').value;
-  let youtube = document.getElementById('youtube').value;
-  let twitter = document.getElementById('twitter').value;
-  let linkedin = document.getElementById('linkedin').value;
-  let getDirections = document.getElementById('getDirections').value;
+  const template = document.getElementById('template').value;
+  const companyLogo = document.getElementById('logoimage').files[0];
+  const companyName = document.getElementById('companyName').value;
+  const companyTagline = document.getElementById('companyTagline').value;
+  const qrcodelink = document.getElementById('qrcodeimage').files[0];
+  const companyBanner = document.getElementById('BannerImage').files[0];
+  const representativePicture = document.getElementById('Profileimage').files[0];
+  const representativeName = document.getElementById('representativeName').value;
+  const representativeDesignation = document.getElementById('representativeDesignation').value;
+  const repPhoneNumber = document.getElementById('repPhoneNumber').value;
+  const repWhatsappNumber = document.getElementById('repWhatsappNumber').value;
+  const email = document.getElementById('email').value;
+  const about = document.getElementById('about').value;
+  const legalInfo = document.getElementById('legalInfo').value;
+  const catalog = document.getElementById('catalog').value;
+  const services = document.getElementById('services').value;
+  const address = document.getElementById('address').value;
+  const gallery1 = document.getElementById('galleryimage1').files[0];
+  const gallery2 = document.getElementById('galleryimage2').files[0];
+  const gallery3 = document.getElementById('galleryimage3').files[0];
+  const website = document.getElementById('website').value;
+  const facebook = document.getElementById('facebook').value;
+  const instagram = document.getElementById('instagram').value;
+  const youtube = document.getElementById('youtube').value;
+  const twitter = document.getElementById('twitter').value;
+  const linkedin = document.getElementById('linkedin').value;
+  const getDirections = document.getElementById('getDirections').value;
   let editBtn = document.getElementById('editBtn').value;
   let saveBtn = document.getElementById('saveBtn').value;
-  saveMessage(template, companyLogo, companyName, companyTagline, qrcodelink, companyBanner, representativeName, representativePicture, representativeDesignation, repPhoneNumber, repWhatsappNumber, email, about, legalInfo, catalog, services, address, gallery1, gallery2, gallery3, website, facebook, instagram, youtube, twitter, linkedin, getDirections);
-}
+
+  // Function to upload a file to Cloudinary
+  async function uploadImage(file) {
+    if (!file) return '';
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'image-upload'); // Replace with your upload preset
+    formData.append('cloud_name', 'dico3j30a'); // Replace with your Cloudinary cloud name
+
+    try {
+      const response = await fetch('https://api.cloudinary.com/v1_1/dico3j30a/image/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error('Failed to upload image');
+
+      const data = await response.json();
+      return data.secure_url; // Return the URL of the uploaded image
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      return '';
+    }
+  }
+
+  // Upload images and store URLs
+  const logoUrl = await uploadImage(companyLogo);
+  const qrCodeUrl = await uploadImage(qrcodelink);
+  const bannerUrl = await uploadImage(companyBanner);
+  const profileUrl = await uploadImage(representativePicture);
+  const gallery1Url = await uploadImage(gallery1);
+  const gallery2Url = await uploadImage(gallery2);
+  const gallery3Url = await uploadImage(gallery3);
+
+  // Update hidden inputs with image URLs
+  document.getElementById('companyLogourl').value = logoUrl;
+  document.getElementById('qrcodelinkurl').value = qrCodeUrl;
+  document.getElementById('companyBannerurl').value = bannerUrl;
+  document.getElementById('representativePictureurl').value = profileUrl;
+  document.getElementById('gallery1url').value = gallery1Url;
+  document.getElementById('gallery2url').value = gallery2Url;
+  document.getElementById('gallery3url').value = gallery3Url;
+
+  // Save data
+  saveMessage(
+    template,
+    logoUrl,
+    companyName,
+    companyTagline,
+    qrCodeUrl,
+    bannerUrl,
+    representativeName,
+    profileUrl,
+    representativeDesignation,
+    repPhoneNumber,
+    repWhatsappNumber,
+    email,
+    about,
+    legalInfo,
+    catalog,
+    services,
+    address,
+    gallery1Url,
+    gallery2Url,
+    gallery3Url,
+    website,
+    facebook,
+    instagram,
+    youtube,
+    twitter,
+    linkedin,
+    getDirections
+  );
+
+  alert('Form saved successfully!');
+});
 
 
 // Function to update Data on Card Dashboard Page & if saved successfully, toggle the save button back to edit
-function saveMessage(template, companyLogo, companyName, companyTagline, qrcodelink, companyBanner, representativeName, representativePicture, representativeDesignation, repPhoneNumber, repWhatsappNumber, email, about, legalInfo, catalog, services, address, gallery1, gallery2, gallery3, website, facebook, instagram, youtube, twitter, linkedin, getDirections) {
+function saveMessage(template, logoURL, companyName, companyTagline, qrCodeUrl, bannerUrl, representativeName, profileUrl, representativeDesignation, repPhoneNumber, repWhatsappNumber, email, about, legalInfo, catalog, services, address, gallery1Url, gallery2Url, gallery3Url, website, facebook, instagram, youtube, twitter, linkedin, getDirections) {
   let userRef = dbRef.child(`Collected Data/${username}`);
   userRef.set({
     template: template,
-    companyLogo: companyLogo,
+    companyLogo: logoURL,
     companyName: companyName,
     companyTagline: companyTagline,
-    qrcodelink: qrcodelink,
-    companyBanner: companyBanner,
+    qrcodelink: qrCodeUrl,
+    companyBanner: bannerUrl,
     representativeName: representativeName,
-    representativePicture: representativePicture,
+    representativePicture: profileUrl,  // Use the uploaded image URL
     representativeDesignation: representativeDesignation,
     repPhoneNumber: repPhoneNumber,
     repWhatsappNumber: repWhatsappNumber,
@@ -341,9 +416,9 @@ function saveMessage(template, companyLogo, companyName, companyTagline, qrcodel
     legalInfo: legalInfo,
     catalog: catalog,
     services: services,
-    gallery1: gallery1,
-    gallery2: gallery2,
-    gallery3: gallery3,
+    gallery1: gallery1Url,
+    gallery2: gallery2Url,
+    gallery3: gallery3Url,
     address: address,
     website: website,
     facebook: facebook,
@@ -367,13 +442,13 @@ function saveMessage(template, companyLogo, companyName, companyTagline, qrcodel
 //Function to toggle between Edit mode and View mode. This function is called in the SaveMessage function.
 function toggleViewMode(isViewMode) {
   template.disabled = isViewMode;
-  companyLogo.readOnly = isViewMode;
+  companyLogourl.readOnly = isViewMode;
   companyName.readOnly = isViewMode;
   companyTagline.readOnly = isViewMode;
-  qrcodelink.readOnly = isViewMode;
-  companyBanner.readOnly = isViewMode;
+  qrcodelinkurl.readOnly = isViewMode;
+  companyBannerurl.readOnly = isViewMode;
   representativeName.readOnly = isViewMode;
-  representativePicture.readOnly = isViewMode;
+  representativePictureurl.readOnly = isViewMode;
   representativeDesignation.readOnly = isViewMode;
   repPhoneNumber.readOnly = isViewMode;
   repWhatsappNumber.readOnly = isViewMode;
@@ -383,9 +458,9 @@ function toggleViewMode(isViewMode) {
   catalog.readOnly = isViewMode;
   services.readOnly = isViewMode;
   address.readOnly = isViewMode;
-  gallery1.readOnly = isViewMode;
-  gallery2.readOnly = isViewMode;
-  gallery3.readOnly = isViewMode;
+  gallery1url.readOnly = isViewMode;
+  gallery2url.readOnly = isViewMode;
+  gallery3url.readOnly = isViewMode;
   website.readOnly = isViewMode;
   facebook.readOnly = isViewMode;
   instagram.readOnly = isViewMode;
