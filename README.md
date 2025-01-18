@@ -131,7 +131,7 @@ NOTE: Make nodes as provided above. Any change in the name of the node will caus
 
 
 ## Deployment 🚀
-Vercel is a cloud platform that helps developers build, deploy, and scale web applications
+Vercel is a cloud platform that helps developers build, deploy, and scale web applications.
 
 Before deployment, upload the code in your Github or simply Fork this Repository and then follow the steps below: 
 
