@@ -586,8 +586,6 @@ function fetchUserData() {
   let userRef = dbRef.child(`Collected Data/${username}`);
   userRef.once('value', (snapshot) => {
     const userDataContainer = document.getElementById('userDataContainer');
-    const loadingMessage = document.getElementById('loading');
-
     if (snapshot.exists()) {
       const data = snapshot.val();
       // Dynamically create the HTML structure
@@ -829,7 +827,7 @@ function fetchUserData() {
           modal.style.display = "none";
         }
       }
-      
+
       showInstallPrompt(); // Show the install prompt button
 
       // Hide the loading message
@@ -837,8 +835,7 @@ function fetchUserData() {
     } else {
       loadingMessage.textContent = "User not found.";
     }
-  });
-
+ });  
 }
 
 

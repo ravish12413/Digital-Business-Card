@@ -6,25 +6,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link id="dynamicManifest" rel="manifest" href="" />
   <link rel="icon" type="image/png" href="/image/faviconmmt.png">
+  <style>
+    /* Make the video fill the entire screen */
+    #backgroundVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      /* Full viewport width */
+      height: 100vh;
+      /* Full viewport height */
+      object-fit: cover;
+      /* Ensures the video covers the entire area */
+      z-index: -1;
+      /* Send it to the background */
+    }
+
+  </style>
+
 </head>
 
 <body>
   <!--This page is the User Specific page. Whenever a username is appended after a "/" in the URL, it fetches the data from the database and shows in this page-->
+  <!-- The preloader is a video that plays in the background until the user data is fetched and displayed -->
+  <div class="loading">
+    <video autoplay muted loop id="backgroundVideo">
+      <source src="image/mmtcard.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+  </div>
 
   <!-- Container for displaying the user data -->
   <div id="userDataContainer">
-    <p id="loading">Loading user data...</p> <!-- Loading message -->
   </div>
 
   <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
   <script src="app.js?v-0.0.110"></script>
 
-  <script>  
+  <script>
     const uname = window.location.pathname.split("/")[1];
     const dynamicManifest = document.getElementById("dynamicManifest");
     dynamicManifest.href = `/${uname}/manifest.json`;
-    //The Dynamic HTML content is defined in the fetchUserData() function in app.js file 
-    fetchUserData();
+   
+    function hidePreloader() {
+    const preloader = document.querySelector('.loading');
+    preloader.style.display = 'none'; // Hide the preloader
+    fetchUserData(); // Call your function to load content
+  }
+
+  // Detect when the video finishes its first playback
+  const video = document.getElementById('backgroundVideo');
+  video.loop = false; // Disable looping for the first play
+  video.onended = hidePreloader; // Call hidePreloader after video ends
+
   </script>
 </body>
 
