@@ -79,7 +79,7 @@ Here's an explanation of the purpose of each file or folder in your project dire
    - This file locks the exact versions of the dependencies and their nested dependencies used in the project.  
    - It ensures consistent installations across different environments.
 
-6. 📄**`vercel.json`**  
+6. 📄 **`vercel.json`**  
    - This file contains configuration settings for deploying this project to [Vercel](https://vercel.com/).  
    - It may specify build and deployment settings, environment variables, routing, and more, to tailor the deployment process to your application's needs.
 
@@ -131,7 +131,7 @@ NOTE: Make nodes as provided above. Any change in the name of the node will caus
 
 
 ## Deployment 🚀
-Vercel is a cloud platform that helps developers build, deploy, and scale web applications
+Vercel is a cloud platform that helps developers build, deploy, and scale web applications.
 
 Before deployment, upload the code in your Github or simply Fork this Repository and then follow the steps below: 
 
